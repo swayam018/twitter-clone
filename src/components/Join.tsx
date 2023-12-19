@@ -8,7 +8,7 @@ function Join() {
         </div>
 
         <div>
-            <span>Happening now</span>
+            <span>Happening now</span> 
             <span>Join today.</span>
         </div>
     </div>

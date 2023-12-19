@@ -11,3 +11,15 @@ body {
   color: rgb(var(--color-rgb));
   background: rgb(var(--background-rgb))
 }
+
+@media (max-height: 710px) { 
+  .sidebar{
+    height: 100%;
+  }
+}
+
+@layer components{
+   .icons{
+    @apply [&>*]:w-5 [&>*]:h-5 w-[34px]  h-[34px]  rounded-full hover:bg-blue-500/40 flex justify-center items-center 
+  }
+}
