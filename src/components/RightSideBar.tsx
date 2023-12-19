@@ -4,7 +4,7 @@ import { FiMoreHorizontal } from "react-icons/fi";
 
 function RightSideBar() {
   return (
-    <div className=' w-[350px] pl-4 pt-2 flex flex-col gap-4 max-[1070px]:w-[280px] max-[973px]:hidden relative'>
+    <div className=' w-[350px] pl-4 pt-2 flex flex-col gap-4 max-[1070px]:w-[280px] max-[1025px]:hidden relative'>
       <div className=' w-full flex-row flex gap-4 items-center justify-start py-2 bg-gray-500/40 px-4 rounded-full'>
         <IoSearchOutline />
         <input type='text' placeholder='Search' className=' outline-none bg-transparent text-lg  ' />
@@ -15,7 +15,7 @@ function RightSideBar() {
         <button type="button" className=" bg-primary py-2 text-lg px-5 rounded-full ">Subscribe</button>
       </div>
 
-        <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg'> {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+        <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg '> {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
           <div key={item} className='flex flex-row items-start'>
             <div>
               <div>Sports Trending</div>
@@ -27,9 +27,9 @@ function RightSideBar() {
             </div>
           </div>
         ))}
-        <div className=' sticky top-0'> <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg'>
-          <h1>who to follow</h1>
         </div>
+        <div className='sticky top-0 '> <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg'>
+          <h1>who to follow</h1>
         </div>
       </div>
     </div>

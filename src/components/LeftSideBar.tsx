@@ -1,6 +1,5 @@
 import React from "react";
 import { BiHomeCircle } from "react-icons/bi";
-import { HiOutlineHashtag } from "react-icons/hi";
 import { GrNotification } from "react-icons/gr";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
@@ -37,14 +36,14 @@ const NavigationItems = [
 
 function LeftSideBar() {
     return (
-        <aside className=" w-72 h-screen flex flex-col bg-black max-xl:items-end max-xl:w-fit sticky top-0 overflow-auto ">
-            <div className="flex flex-col h-full justify-between">
-            <div className="flex flex-col h-full ">
+        <aside className=" w-72 h-screen flex flex-col bg-black max-xl:items-end max-xl:w-fit sticky top-0 overflow-auto max-[482px]:hidden">
+            <div className="flex flex-col h-full justify-between max-xl:pt-2">
+            <div className="flex flex-col h-full max-sm:gap-2">
                 {NavigationItems.map((items: any, index) => (
                     <Link
                         href={`/${items?.title.toLowerCase()}`}
                         key={index}
-                        className="flex flex-row w-fit gap-5 items-center hover:bg-gray-700/40 py-[10px] text-2xl  rounded-full mx-4 justify-start px-5 max-xl:px-4 max-xl:py-4"
+                        className="flex flex-row w-fit gap-5 items-center hover:bg-gray-700/40 py-[10px] text-2xl  rounded-full mx-4 justify-start px-5 max-xl:px-4 max-xl:py-4 max-sm:text-xl max-sm:px-2 max-sm:py-2 max-sm:ml-4  max-sm:mr-2"
                     >
                         <div>
                             <items.icon />
@@ -54,11 +53,17 @@ function LeftSideBar() {
                         </div>
                     </Link>
                 ))}
-                <button type="button" className=" bg-primary py-[10px] text-2xl mx-4 w-52 rounded-full my-2 max-xl:hidden">Post</button>
-                <div className="hidden max-xl:inline bg-primary py-4 text-2xl mx-4 w-fit rounded-full my-2  hover:bg-primary/40 px-4 ">
+                <button type="button" className=" bg-primary py-[10px] text-2xl mx-4 w-52 rounded-full my-2 max-xl:hidden ">Post</button>
+                <div className="hidden max-xl:inline bg-primary py-4 text-2xl ml-4 w-fit rounded-full my-2  hover:bg-primary/40 px-4 max-sm:text-xl max-sm:px-2 max-sm:py-2">
                     < GiFeather />
                 </div>
-                <div className="hidden w-[46px] h-[46px] rounded-full bg-slate-400/20 max-xl:inline mx-4 my-4 px-4 py-4" > ab</div>
+                <div className='w-10 h-10 ml-4 mr-2 hidden max-xl:inline-block'>
+                <Link href={'/profile'}>
+                    <div className=' bg-slate-400/20  rounded-full'>
+                        <div className=' w-10 h-10'></div>
+                    </div>
+                </Link>
+            </div>
                </div>
                 <div className=" flex flex-row mx-4 rounded-full hover:bg-gray-700/40 px-4  py-1 space-x-4 items-center justify-between max-xl:hidden ">
                     <div className=" flex flex-row space-x-4 items-center ">

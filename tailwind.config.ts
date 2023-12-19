@@ -15,6 +15,9 @@ const config: Config = {
       },
       colors:{
         "primary":"#1a8cd8",
+      },
+      space:{
+        "26":"40px"
       }
     },
   },
