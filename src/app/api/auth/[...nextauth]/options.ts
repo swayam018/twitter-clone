@@ -2,14 +2,14 @@ import GithubProvider, { GithubProfile } from 'next-auth/providers/github';
 import User from '@/models/User';
 import { connects } from '@/dbConfig/dbConfig';
 import CredentialsProvider from 'next-auth/providers/credentials';
-import type { TuserSchema} from '../../../../../type'
-import { OAuthConfig } from 'next-auth/providers/oauth';
+
 export const options = {
     providers:[
         GithubProvider({
             clientId: process.env.GITHUB_ID!,
             clientSecret: process.env.GITHUB_SECRET!
-        })
+        }),
+        
     ],
     callbacks:{
         async signIn({profile}:any){
