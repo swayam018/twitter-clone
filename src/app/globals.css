@@ -22,4 +22,7 @@ body {
    .icons{
     @apply [&>*]:w-5 [&>*]:h-5 w-[34px]  h-[34px]  rounded-full hover:bg-blue-500/40 flex justify-center items-center 
   }
+  .input{
+    @apply text-xl flex flex-col gap-2 w-80
+  }
 }

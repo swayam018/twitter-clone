@@ -11,7 +11,11 @@ const userSchema = new mongoose.Schema({
   },
   twitterId: {
     type: String,
-    unique: true,
+    required:true
+  },
+  provider:{
+    type:String,
+    required:true,
   },
   location: {
     type: String,

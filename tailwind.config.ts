@@ -18,6 +18,9 @@ const config: Config = {
       },
       space:{
         "26":"40px"
+      },
+      boxShadow:{
+        "normal":"0px 0px 5px rgb(0 0 0 / 0.2);"
       }
     },
   },
