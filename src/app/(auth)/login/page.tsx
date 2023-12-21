@@ -12,6 +12,10 @@ function Signinpage() {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setformData({ ...formData, [e.target.name]: e.target.value });
     }
+    const handlerSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
+        signIn('credentials',formData);
+    }
 
     return (
         <div className=' flex justify-center items-center min-h-screen h-full w-full bg-black'>
@@ -38,7 +42,7 @@ function Signinpage() {
                     <span>Sign in with FaceBook</span>
                 </button>
                 <span className=' w-80'>---------------- OR ----------------</span>
-                <form className=' flex flex-col gap-4 items-center w-full' onSubmit={() => signIn('credentials',formData)}>
+                <form className=' flex flex-col gap-4 items-center w-full' onSubmit={handlerSubmit}>
                     <div className=' input'>
                         <label htmlFor="Email">Email</label>
                         <input type="email" placeholder='Enter email' className=' outline-none border border-white rounded-md bg-transparent px-2 py-2 w-full  focus:shadow-normal focus:shadow-white' required onChange={handleChange} value={formData.email} name='email' />

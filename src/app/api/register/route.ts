@@ -20,7 +20,7 @@ export async function POST(request:NextRequest){
         password:hashPassword,
         twitterId:username || twitterId,
         provider:"credentials"
-    })
+    }) 
 
     await newUser.save();
 
