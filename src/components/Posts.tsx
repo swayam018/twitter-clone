@@ -7,7 +7,7 @@ import { GrFavorite } from "react-icons/gr";
 import { CgPoll } from "react-icons/cg";
 import { FiUpload } from "react-icons/fi";
 import { IoBookmarkOutline } from "react-icons/io5";
-import { LuDot } from "react-icons/lu";
+
 function Posts() {
     return (
         <div className='flex flex-row py-4 px-4 gap-4 border-t border-gray-400  cursor-pointer max-md:px-2 max-md:gap-2'>
@@ -24,20 +24,19 @@ function Posts() {
                         <div className=' w-10 overflow-hidden'>Trininty1xsfaaaaaaaaaaaaaaaaaaaaaaa </div>
                         <div className='flex items-center gap-2'> <div>@usernameislong </div>aks 34,4242 </div>
                     </div>
-                    <div>
+                    <div className=' hover:bg-primary/20 px-2 py-2 rounded-full hover:text-primary'>
                         <FiMoreHorizontal />
                     </div>
                 </div>
-
                 <div className=' pt-2' >
-                    <div className=' pb-4 w-full break-all'> 
-                    sfasfjlasssssssss;;;;;jjkllllllllllllllllllll saffffffffffffffffffffffff sfdaaaaaaaaaaaaaaaaaaaaaffffffffffffffffffsaaaaaaaaaaaaaallllllllllllllllllllllllllllllllllllllllllllllll
-                    <pre>sjafk fsafasf
-                        fsf
-                        asljfka
-                        faskfl</pre>
-                    jsakfja
-                    skjsl
+                    <div className=' pb-4 w-full break-all'>
+                        sfasfjlasssssssss;;;;;jjkllllllllllllllllllll saffffffffffffffffffffffff sfdaaaaaaaaaaaaaaaaaaaaaffffffffffffffffffsaaaaaaaaaaaaaallllllllllllllllllllllllllllllllllllllllllllllll
+                        <pre>sjafk fsafasf
+                            fsf
+                            asljfka
+                            faskfl</pre>
+                        jsakfja
+                        skjsl
                     </div>
                     <div className=' h-80 aspect-square w-full bg-gray-500 rounded-lg max-[485px]:w-full max-[485px]:aspect-auto  ' />
                 </div>

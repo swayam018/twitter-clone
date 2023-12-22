@@ -2,17 +2,61 @@ import GithubProvider, { GithubProfile } from "next-auth/providers/github";
 import User from "@/models/User";
 import { connects } from "@/dbConfig/dbConfig";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import FacebookProvider from "next-auth/providers/facebook";
+import FacebookProvider, {
+  FacebookProfile,
+} from "next-auth/providers/facebook";
 
 export const options: any = {
   providers: [
-    GithubProvider({
+    GithubProvider<GithubProfile>({
+      async profile(profile) {
+        try {
+          await connects();
+          const userExist = await User.findOne({ email: profile.email });
+          if (!userExist) {
+            const twitterId = profile.email!.split("@")[0];
+            const newUser = await new User({
+              name: profile.name,
+              email: profile.email,
+              twitterId: twitterId,
+              provider: "Github",
+              isVerified: true,
+            });
+            await newUser.save();
+            return { ...profile, id: twitterId };
+          }
+          return { ...profile, id: userExist.twitterId };
+        } catch (error: any) {
+          console.log("here is the error", error.message);
+          return error.message;
+        }
+      },
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-    FacebookProvider({
+    FacebookProvider<FacebookProfile>({
+      async profile(profile) {
+        try {
+          await connects();
+          const userExist = await User.findOne({ email: profile.email });
+          if (!userExist) {
+            const twitterId = profile.email!.split("@")[0];
+            const newUser = await new User({
+              name: profile.name,
+              email: profile.email,
+              twitterId: twitterId,
+              provider: "Github",
+            });
+            await newUser.save();
+            return { ...profile, id: twitterId };
+          }
+          return { ...profile, id: userExist.twitterId };
+        } catch (error: any) {
+          console.log("here is the error", error.message);
+          return profile;
+        }
+      },
       clientId: process.env.FACEBOOK_ID!,
       clientSecret: process.env.FACEBOOK_SECRET!,
     }),
@@ -34,59 +78,43 @@ export const options: any = {
       },
       async authorize(credentials) {
         try {
-            console.log("credentials");
           await connects();
           const userExist = await User.findOne({ email: credentials?.email });
           if (!userExist) {
-            return NextResponse.json({
-              message: "email or password is incorrect",
-            });
+            return;
           }
           const comparePass = await bcrypt.compare(
             credentials?.password!,
             userExist.password
           );
           if (!comparePass) {
-            return NextResponse.json({
-              message: "email or password is incorrect",
-            });
+            return;
           }
-          const user = userExist.select("email _id name twitterId");
-          return user;
+          delete userExist.password;
+          return userExist;
         } catch (error) {
           console.log("something wents wrong while signin", error);
         }
       },
     }),
   ],
-  session: {
-    stratedy: "jwt",
-  },
-  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async signIn({ account, profile }: any) {
-      if (account.provider === "credentials") {
-        // console.log("asfsfj");
-       console.log(profile);
+    async jwt({ token,account }: any) {
+      console.log(account)
+      if(account.provider){
+        token.provider = account?.provider
       }
-      try {
-        await connects();
-        const userExist = await User.findOne({ email: profile.email });
-        if (!userExist) {
-          const twitterId = profile.email.split("@")[0];
-          const newUser = await new User({
-            name: profile.name,
-            email: profile.email,
-            twitterId: twitterId,
-            provider: account.provider,
-          });
-          await newUser.save();
-        }
-        return true;
-      } catch (error: any) {
-        console.log("here is the error", error.message);
-        return false;
-      }
+      return token;
     },
+    async session({ session, token }: any) {
+      if (session?.user) {
+        session.user.provider = token.provider;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
+    error: "/login",
   },
 };

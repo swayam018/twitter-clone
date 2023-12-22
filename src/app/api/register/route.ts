@@ -1,11 +1,12 @@
 import User from "@/models/User";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcryptjs'
+import { connects } from "@/dbConfig/dbConfig";
 
 export async function POST(request:NextRequest){
    try {
-    const { email,password,username ,name} = await request.json();
-
+       const { email,password,username ,name} = await request.json();
+       await connects();
     const userExist = await User.findOne({email});
     if(userExist){
         return NextResponse.json({message:"User is already exists"});
@@ -21,7 +22,6 @@ export async function POST(request:NextRequest){
         twitterId:username || twitterId,
         provider:"credentials"
     }) 
-
     await newUser.save();
 
     return NextResponse.json({message:"User is created successfully",status:200});

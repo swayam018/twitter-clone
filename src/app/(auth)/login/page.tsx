@@ -2,19 +2,29 @@
 import React, { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { SiGithub } from 'react-icons/si'
+import { redirect, useRouter } from 'next/navigation';
 
 
-function Signinpage() {
+function Login() {
     const [formData, setformData] = useState({
         email: "",
         password: "",
+        redirect: false
     });
+    const router = useRouter();
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setformData({ ...formData, [e.target.name]: e.target.value });
     }
-    const handlerSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+    const handlerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        signIn('credentials',formData);
+        const signInResult = await signIn('credentials', formData );
+        if (signInResult?.error) {
+            console.log("error happened");
+        }
+        if(signInResult?.ok){
+            console.log("ok");
+            router.push('/profile');
+        }
     }
 
     return (
@@ -23,19 +33,16 @@ function Signinpage() {
                 <button
                     type="button"
                     onClick={() => signIn('github')}
-                    className="w-80 items-center flex gap-4 flex-row px-5 bg-gray-950 text-xl text-slate-50 py-2 rounded-full justify-center"
-                >
+                    className="w-80 items-center flex gap-4 flex-row px-5 bg-gray-950 text-xl text-slate-50 py-2 rounded-full justify-center">
                     <span>
                         <SiGithub />
                     </span>
                     <span>Sign in with Github</span>
                 </button>
-
                 <button
                     type="button"
                     onClick={() => signIn('facebook')}
-                    className="w-80 items-center flex gap-4 flex-row px-5 bg-blue-500 text-xl text-slate-50 py-2 rounded-full justify-center"
-                >
+                    className="w-80 items-center flex gap-4 flex-row px-5 bg-blue-500 text-xl text-slate-50 py-2 rounded-full justify-center">
                     <span>
                         <SiGithub />
                     </span>
@@ -58,4 +65,4 @@ function Signinpage() {
     )
 }
 
-export default Signinpage
+export default Login;

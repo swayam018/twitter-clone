@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true, // Specify that the 'name' field is required
+    required: true,
   },
   email: {
     type: String,
     unique: true,
-    required: true, // Specify that the 'email' field is required
+    required: true,
   },
   twitterId: {
     type: String,
@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema({
   provider:{
     type:String,
     required:true,
+  },
+  isVerified:{
+    type:Boolean,
+    default:false
   },
   password:{
     type:String
