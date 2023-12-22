@@ -29,11 +29,11 @@ function Profile() {
               Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates ducimus nobis vitae. Deserunt earum nisi reiciendis laudantium quibusdam numquam exercitationem?
             </div>
             <div className=' flex flex-wrap justify-start leading-2 text-gray-500'>
-              <span className='usertag'><IoLocationOutline/>loaction</span>
-              <span className='usertag'><RiLinkM/>websitedomain</span>
-              <span className='usertag'><CgCalendarDates/>joined data</span>
-              <span className='usertag'><BsBalloon/>birth date</span>
-              <span className='usertag'><MdOutlineWorkOutline/>interested topic</span>
+              <span className='usertag'><IoLocationOutline />loaction</span>
+              <span className='usertag'><RiLinkM />websitedomain</span>
+              <span className='usertag'><CgCalendarDates />joined data</span>
+              <span className='usertag'><BsBalloon />birth date</span>
+              <span className='usertag'><MdOutlineWorkOutline />interested topic</span>
             </div>
             <div className=' flex gap-4'>
               <span>following number</span>

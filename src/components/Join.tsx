@@ -11,7 +11,7 @@ function Join() {
             <span>Happening now</span> 
             <span>Join today.</span>
         </div>
-    </div>
+    </div> 
   )
 } 
 
