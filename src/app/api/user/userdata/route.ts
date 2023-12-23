@@ -6,7 +6,7 @@ import { TuserSchema } from "../../../../../type";
 export async function GET(request:NextRequest){
     try {
         connects();
-        const {email} = await request.json();
+        const email ="eight@gmail.com";
         const userExist:TuserSchema = await User.findOne({email});
         if(!userExist) {
             return NextResponse.json({message:"user does not exist",status:401});
@@ -20,5 +20,6 @@ export async function GET(request:NextRequest){
         return NextResponse.json({message:"user found",user});
     } catch (error:any) {
         console.log(error.message);
+        return NextResponse.json({message:"error occured"})
     }
 }

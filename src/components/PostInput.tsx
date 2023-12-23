@@ -10,6 +10,7 @@ import { FaGlobeAmericas } from "react-icons/fa";
 import Link from 'next/link';
 import Image from 'next/image';
 import { RxCross2 } from "react-icons/rx";
+import axios from 'axios';
 
 function PostInput() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -52,6 +53,7 @@ function PostInput() {
     };
 
     useEffect(() => {
+        
         if (!files) return;
         let tmp = [];
         for (let i = 0; i < files?.length; i++) {
@@ -65,6 +67,12 @@ function PostInput() {
                 URL.revokeObjectURL(objectUrls[i]);
             };
         }
+        const fetchData = async() =>{
+            await axios.get('/api/user/userdata').then((resp:any)=>{
+                console.log(resp.data.user)
+              }).catch((error)=>{console.log(error)});
+        }
+        fetchData();
     }, [files]);
 
     const imageHandler = (index: any) => {

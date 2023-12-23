@@ -8,8 +8,8 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div>Landing page
-       <Link href={'/login'}>Login</Link>
+    <div>
+      <Join/>
     </div>
-  )
+  ) 
 }
