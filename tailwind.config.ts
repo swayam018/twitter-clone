@@ -20,7 +20,8 @@ const config: Config = {
         "26":"40px"
       },
       boxShadow:{
-        "normal":"0px 0px 5px rgb(0 0 0 / 0.2);"
+        "normal":"0px 0px 5px rgb(0 0 0 / 0.2);",
+        "modal":"4px 4px 5px rgba(0, 0, 0, 0.2)"
       }
     },
   },

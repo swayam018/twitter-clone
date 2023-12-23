@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react'
 import { SiGithub } from 'react-icons/si'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 
 
 function Signup() {
@@ -67,6 +68,7 @@ function Signup() {
         </div>
         <button type='submit' className=' bg-primary px-5 py-2 w-fit text-xl rounded-full  shadow-lg shadow-primary/50'>Sign Up</button>
       </form>
+
       </div>
     </div>
   )

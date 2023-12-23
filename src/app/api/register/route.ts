@@ -14,13 +14,18 @@ export async function POST(request:NextRequest){
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(password,salt)
     const twitterId = email.split("@")[0]
+    const timestamp = new Date().getTime();
+    const date = new Date(timestamp);
+    const localdate = date.toLocaleString('en-GB')
+    console.log(localdate);
     
     const newUser = await new User({
         name:name,
         email:email,
         password:hashPassword,
         twitterId:username || twitterId,
-        provider:"credentials"
+        provider:"credentials",
+        createdTime:localdate
     }) 
     await newUser.save();
 

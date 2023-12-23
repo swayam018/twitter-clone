@@ -1,11 +1,14 @@
+"use client"
 import React from 'react'
 import { IoLocationOutline } from "react-icons/io5";
 import { CgCalendarDates } from "react-icons/cg";
 import { BsBalloon } from "react-icons/bs";
 import { RiLinkM } from "react-icons/ri";
 import { MdOutlineWorkOutline } from "react-icons/md";
+import { usePathname } from 'next/navigation';
 
 function Profile() {
+  
   return (
     <div className='text-white bg-black w-[598px] relative border-r border-gray-500 '>
       <div>

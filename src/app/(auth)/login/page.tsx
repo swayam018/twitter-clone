@@ -23,7 +23,7 @@ function Login() {
         }
         if(signInResult?.ok){
             console.log("ok");
-            router.push('/profile');
+            router.push('/home');
         }
     }
 

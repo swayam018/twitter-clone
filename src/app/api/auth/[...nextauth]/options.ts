@@ -98,10 +98,10 @@ export const options: any = {
       },
     }),
   ],
+  clientSecret:process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token,account }: any) {
-      console.log(account)
-      if(account.provider){
+      if(account?.provider){
         token.provider = account?.provider
       }
       return token;

@@ -1,7 +1,11 @@
 export type TuserSchema={
+    _id:string,
     name?:string,
     email?:string,
     twitterId?:string,
+    provider?:string,
+    isVerified?:boolean,
+    password?:string,
     location?:string,
     profile_image?:string,
     banner_image?:string,
@@ -14,6 +18,9 @@ export type TuserSchema={
     role?:string,
     tweets?:[string],
     liked_tweet?:[string],
+    user_type?:string,
     saved_tweet?:[string],
+    comment_tweets?:[string],
+    createdTime?:string,
     createdAt?:Date
 }

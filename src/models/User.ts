@@ -74,8 +74,17 @@ const userSchema = new mongoose.Schema({
       ref: "Tweet",
     },
   ],
+  comment_tweets:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment",
+    }
+  ],
   user_type: {
     type: String,
+  },
+  createdTime:{
+    type:String,
   },
   createdAt: {
     type: Date,

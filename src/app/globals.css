@@ -31,4 +31,7 @@ body {
   .feedhead{
     @apply flex-1 text-center hover:bg-gray-700/40 flex items-center justify-center font-thin tracking-wider
   }
+  .triangle{
+    @apply before:absolute before:content-normal before:-bottom-2 before:left-1/2 before:w-5 before:h-5 before:rotate-45 before:bg-black before:rounded-sm  before:shadow-modal before:shadow-white/40 -z-50
+  }
 }

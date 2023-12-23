@@ -1,7 +1,4 @@
-import LeftSideBar from '@/components/LeftSideBar'
 import Profile from '@/components/Profile'
-
-import RightSideBar from '@/components/RightSideBar'
 import React from 'react'
 import { IoMdArrowBack } from 'react-icons/io'
 import Link from 'next/link'
