@@ -22,6 +22,9 @@ const config: Config = {
       boxShadow:{
         "normal":"0px 0px 5px rgb(0 0 0 / 0.2);",
         "modal":"4px 4px 5px rgba(0, 0, 0, 0.2)"
+      },
+      screens:{
+        "xs":"520px"
       }
     },
   },

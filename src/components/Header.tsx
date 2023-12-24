@@ -9,7 +9,7 @@ function Header() {
             <div className={`flex-1 text-center hover:bg-gray-700/40 flex items-center justify-center font-semibold ${ !active?"border-b-4 border-primary":""}`}><span>Following</span></div>
             <div className=' flex-none hover:bg-gray-700/40 w-10 flex items-center justify-center max-[482px]:hidden'><IoSettingsOutline/></div>
         </nav>
-    </header>
+    </header> 
   )
 }
 

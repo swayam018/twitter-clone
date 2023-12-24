@@ -34,4 +34,7 @@ body {
   .triangle{
     @apply before:absolute before:content-normal before:-bottom-2 before:left-1/2 before:w-5 before:h-5 before:rotate-45 before:bg-black before:rounded-sm  before:shadow-modal before:shadow-white/40 -z-50
   }
+  .oauthButton{
+    @apply w-80 items-center flex gap-4 flex-row px-5 bg-white text-lg text-black py-2 rounded-full justify-start font-semibold max-[380px]:w-64 max-[380px]:gap-2 max-[380px]:px-4 
+  }
 }

@@ -45,6 +45,11 @@ function LeftSideBar() {
     
     return (
         <aside className=" w-72 h-screen flex flex-col bg-black max-xl:items-end max-xl:w-fit sticky top-0 overflow-auto max-[482px]:hidden px-1 max-xl:px-0 cursor-pointer">
+             {open && (<div ref={modalref} className="flex flex-col rounded-lg py-5 gap-2 items-center justify-between shadow-modal shadow-slate-50 text-lg h-fit absolute  bottom-[74px]  bg-black w-full z-50 font-semibold triangle ">
+                        <Link href={'/logout'} className=" hover:bg-gray-400/10 w-full py-2 pl-5">Log out {session?.user?.name}</Link>
+                        <Link href={'/login'} className=" hover:bg-gray-400/10 w-full  py-2 pl-5">Add an existing account</Link>
+                    </div>)} 
+
             <div className="flex flex-col h-full justify-between max-xl:pt-2">
                 <div className="flex flex-col h-full max-sm:gap-2">
                     {NavigationItems.map((items: any, index) => (
@@ -73,13 +78,7 @@ function LeftSideBar() {
                         </Link>
                     </div>
                 </div>
-
-                <div  className=" relative w-full">
-                    {open && (<div ref={modalref} className="flex flex-col rounded-lg py-5 gap-2 items-center justify-between shadow-modal shadow-slate-50 text-lg h-fit absolute  bottom-[74px]  bg-black w-full z-50 font-semibold triangle ">
-                        <Link href={'/logout'} className=" hover:bg-gray-400/10 w-full py-2 pl-5">Log out {session?.user?.name}</Link>
-                        <Link href={'/login'} className=" hover:bg-gray-400/10 w-full  py-2 pl-5">Add an existing account</Link>
-                    </div>)}
-
+                   
                     <div onClick={() => setOpen(!open)}   className=" flex flex-row mx-4 rounded-full hover:bg-gray-700/40 px-4  py-1 space-x-4 items-center justify-between max-xl:hidden " >
                         <div className=" flex flex-row space-x-4 items-center ">
                             <div className=" w-10 h-10 rounded-full bg-slate-500/20 " />
@@ -92,8 +91,6 @@ function LeftSideBar() {
                             <FiMoreHorizontal />
                         </div>
                     </div>
-                </div>
-
             </div>
         </aside>
     );

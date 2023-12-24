@@ -1,9 +1,20 @@
-import React from 'react'
 
-function LoginPage() {
+
+function LoginIntercepter() {
+
+
   return (
-    <div>LoginPage</div>
-  )
+    <div>login page</div>
+    // <Modal showModal={showModal} onClose={closeModal}>
+    //   <div>
+    //     <h1 className='text-2xl font-bold mb-4'>Login</h1>
+      
+    //     <form>
+    //       {/* ... form inputs, buttons, etc. ... */}
+    //     </form>
+    //   </div>
+    // </Modal>
+  );
 }
 
-export default LoginPage
+export default LoginIntercepter;
