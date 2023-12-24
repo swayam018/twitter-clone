@@ -44,7 +44,7 @@ function Login() {
                     onClick={() => signIn('facebook')}
                     className="w-80 items-center flex gap-4 flex-row px-5 bg-blue-500 text-xl text-slate-50 py-2 rounded-full justify-center">
                     <span>
-                        <SiGithub />
+                        <SiGithub /> 
                     </span>
                     <span>Sign in with FaceBook</span>
                 </button>

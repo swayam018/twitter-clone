@@ -6,7 +6,12 @@ import { TuserSchema } from "../../../../../type";
 export async function GET(request:NextRequest){
     try {
         connects();
-        const email ="eight@gmail.com";
+        const pathname = request.nextUrl.pathname;
+        const mail = pathname.toString;
+        const email =mail;
+        if(email === undefined){
+            return NextResponse.json({message:"user does not exist",status:401});
+        }
         const userExist:TuserSchema = await User.findOne({email});
         if(!userExist) {
             return NextResponse.json({message:"user does not exist",status:401});
