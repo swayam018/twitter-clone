@@ -1,8 +1,10 @@
 import React from 'react'
 import { IoSearchOutline } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
+import { getServerSession } from 'next-auth';
 
-function RightSideBar() {
+async function RightSideBar() {
+
   return (
     <div className=' w-[350px] pl-4 pt-2 flex flex-col gap-4 max-[1070px]:w-[280px] max-[1025px]:hidden relative'>
       <div className=' w-full flex-row flex gap-4 items-center justify-start py-2 bg-gray-500/40 px-4 rounded-full'>

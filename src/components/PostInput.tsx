@@ -10,6 +10,9 @@ import { FaGlobeAmericas } from "react-icons/fa";
 import Link from 'next/link';
 import Image from 'next/image';
 import { RxCross2 } from "react-icons/rx";
+import axios from 'axios';
+import { useSession } from "next-auth/react"
+import { revalidatePath } from 'next/cache';
 
 function PostInput() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -17,6 +20,8 @@ function PostInput() {
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState<string[]>([]);
     const [text,setText] = useState("");
+    const [postStatus,setPostStatus] = useState(false);
+    const {data : session ,status} = useSession();
 
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -73,6 +78,18 @@ function PostInput() {
         let newArray = [...previews.slice(0, index), ...previews.slice(index + 1)];
         setPreviews(newArray);
     }
+
+
+    const onClickHandler = async ()=>{
+        await axios.post('/api/tweet/posttweet',{text:text ,user:session?.user}).then((resp)=>{
+            setPostStatus(true);
+            setText("");
+            revalidatePath('(route)/home');
+        }).catch((error:any)=>{
+            console.log(error.message);
+        })
+    }
+  
     return (
         <div className=' px-4 mt-4 flex flex-row max-sm:px-2  '>
             <div className='pr-4 max-md:pr-2'>
@@ -84,7 +101,7 @@ function PostInput() {
             </div>
             <div className=' w-full '>
                 <div className=' flex flex-col justify-start border-b border-gray-500 pb-4 flex-1'>
-                    <textarea placeholder='What is happening?!' maxLength={250} minLength={1} className='outline-none bg-black text-slate-50 text-xl break-all resize-none w-full max-h-[500px] ' onChange={handleInputChange} />
+                    <textarea placeholder='What is happening?!' maxLength={250} minLength={1} className='outline-none bg-black text-slate-50 text-xl break-all resize-none w-full max-h-[500px] ' onChange={handleInputChange} value={text} />
                     <div className={` w-full grid gap-4 pt-4 ${previews.length > 1 ? "grid-cols-2" : "grid-cols-1"}`}>
                         {previews &&
                             previews.map((pic, index) => {
@@ -122,7 +139,7 @@ function PostInput() {
                         <div className='icons'><IoLocationOutline /></div>
                     </div>
                     <div className=' px-4 text-primary'>{text.length}/250</div>
-                    <button type="submit" disabled={text.length<1} className={` disabled:bg-gray-400/50 disabled:cursor-not-allowed bg-primary py-2 px-5 text-lg  rounded-full`}>Post</button>
+                    <button type="submit" disabled={text.length<1} className={` disabled:bg-gray-400/50 disabled:cursor-not-allowed bg-primary py-2 px-5 text-lg  rounded-full`} onClick={onClickHandler}>Post</button>
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@ function Login() {
             <div className=' w-[500px] h-fit bg-stone-800 text-white  flex justify-center flex-col items-center py-10 px-4 gap-4 rounded-2xl'>
                 <button
                     type="button"
-                    onClick={() => signIn('github')}
+                    onClick={() => signIn('github',{callbackUrl: 'http://localhost:3000/home'})}
                     className="w-80 items-center flex gap-4 flex-row px-5 bg-gray-950 text-xl text-slate-50 py-2 rounded-full justify-center">
                     <span>
                         <SiGithub />
@@ -41,10 +41,10 @@ function Login() {
                 </button>
                 <button
                     type="button"
-                    onClick={() => signIn('facebook')}
+                    onClick={() => signIn('facebook',{callbackUrl: 'http://localhost:3000/home'})}
                     className="w-80 items-center flex gap-4 flex-row px-5 bg-blue-500 text-xl text-slate-50 py-2 rounded-full justify-center">
                     <span>
-                        <SiGithub /> 
+                        <SiGithub />  
                     </span>
                     <span>Sign in with FaceBook</span>
                 </button>

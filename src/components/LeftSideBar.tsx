@@ -15,7 +15,7 @@ import { LuSquareEqual } from "react-icons/lu";
 import { BsSlashSquare } from "react-icons/bs";
 import { GiFeather } from "react-icons/gi";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 type TItem = {
     title: string;
     icon: string;
@@ -45,19 +45,17 @@ function LeftSideBar() {
     
     return (
         <aside className=" w-72 h-screen flex flex-col bg-black max-xl:items-end max-xl:w-fit sticky top-0 overflow-auto max-[482px]:hidden px-1 max-xl:px-0 cursor-pointer">
-             {open && (<div ref={modalref} className="flex flex-col rounded-lg py-5 gap-2 items-center justify-between shadow-modal shadow-slate-50 text-lg h-fit absolute  bottom-[74px]  bg-black w-full z-50 font-semibold triangle ">
-                        <Link href={'/logout'} className=" hover:bg-gray-400/10 w-full py-2 pl-5">Log out {session?.user?.name}</Link>
+             {open && (<div ref={modalref} className="flex flex-col rounded-lg py-5 gap-2 items-center justify-between shadow-modal shadow-slate-50 text-lg h-fit absolute  bottom-[74px]  bg-black w-fit z-50 font-semibold triangle ">
+                        <button onClick={()=>signOut()} className=" hover:bg-gray-400/10 w-full py-2 pl-5">Log out {session?.user?.name}</button>
                         <Link href={'/login'} className=" hover:bg-gray-400/10 w-full  py-2 pl-5">Add an existing account</Link>
                     </div>)} 
-
             <div className="flex flex-col h-full justify-between max-xl:pt-2">
                 <div className="flex flex-col h-full max-sm:gap-2">
                     {NavigationItems.map((items: any, index) => (
                         <Link
                             href={`/${items?.title.toLowerCase()}`}
                             key={index}
-                            className="flex flex-row w-fit gap-5 items-center hover:bg-gray-700/40 py-[10px] text-2xl  rounded-full mx-4 justify-start px-5 max-xl:px-4 max-xl:py-4 max-sm:text-xl max-sm:px-2 max-sm:py-2 max-sm:ml-4  max-sm:mr-2"
-                        >
+                            className="flex flex-row w-fit gap-5 items-center hover:bg-gray-700/40 py-[10px] text-2xl  rounded-full mx-4 justify-start px-5 max-xl:px-4 max-xl:py-4 max-sm:text-xl max-sm:px-2 max-sm:py-2 max-sm:ml-4  max-sm:mr-2">
                             <div>
                                 <items.icon />
                             </div>

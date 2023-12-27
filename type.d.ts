@@ -24,3 +24,19 @@ export type TuserSchema={
     createdTime?:string,
     createdAt?:Date
 }
+
+
+export type Tprofile = {
+    _id:string,
+    name:string,
+    twitterId:string,
+    location:string,
+    profile_image:string,
+    banner_image:string,
+    bio:string,
+    birthday:string,
+    followers:number,
+    following:number,
+    createdTime:string,
+    tweets?:Array<string>,
+}

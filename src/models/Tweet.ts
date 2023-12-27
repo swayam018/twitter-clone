@@ -8,12 +8,20 @@ const tweetSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  username:{
+    type:String,
+    ref:"User",
+  },
   name:{
     type:String,
     ref:"User",
   },
   tweet_image: {
     type: String,
+  },
+  like_count:{
+    type:Number,
+    default:0,
   },
   retweet: [
     {
@@ -39,6 +47,9 @@ const tweetSchema = new mongoose.Schema({
       ref: "Comment",
     },
   ],
+  createdTime:{
+    type:String,
+  },
   createdAt: {
     type: Date,
     default: Date.now,
@@ -47,7 +58,7 @@ const tweetSchema = new mongoose.Schema({
 
 let Tweet: any;
 
-if (mongoose.modelNames().includes("User")) {
+if (mongoose.modelNames().includes("Tweet")) {
   Tweet = mongoose.model("Tweet");
 } else {
   Tweet = mongoose.model("Tweet", tweetSchema);

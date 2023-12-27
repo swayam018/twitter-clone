@@ -24,9 +24,9 @@ export const options: any = {
               isVerified: true,
             });
             await newUser.save();
-            return { ...profile, id: twitterId };
+            return {id:newUser._id.toString()  , email: newUser.email,name:newUser.name,image:newUser.profile_image,username:newUser.twitterId};
           }
-          return { ...profile, id: userExist.twitterId };
+          return {id:userExist._id.toString()  ,email:userExist.email,name:userExist.name,image:userExist.image,username:userExist.twitterId};
         } catch (error: any) {
           console.log("here is the error", error.message);
           return error.message;
@@ -46,15 +46,15 @@ export const options: any = {
               name: profile.name,
               email: profile.email,
               twitterId: twitterId,
-              provider: "Github",
+              provider: "facebook",
             });
             await newUser.save();
-            return { ...profile, id: twitterId };
+            return {id:newUser._id.toString()  , email: newUser.email,name:newUser.name,image:newUser.profile_image,username:newUser.twitterId};
           }
-          return { ...profile, id: userExist.twitterId };
+          return {id:userExist._id.toString()  ,email:userExist.email,name:userExist.name,image:userExist.image,username:userExist.twitterId};
         } catch (error: any) {
           console.log("here is the error", error.message);
-          return profile;
+          return error.message;
         }
       },
       clientId: process.env.FACEBOOK_ID!,
@@ -76,45 +76,56 @@ export const options: any = {
           required: true,
         },
       },
-      async authorize(credentials) {
+      async authorize(credentials: Record<"email" | "password", string> | undefined) {
         try {
           await connects();
           const userExist = await User.findOne({ email: credentials?.email });
           if (!userExist) {
-            return;
+            return null; 
           }
           const comparePass = await bcrypt.compare(
             credentials?.password!,
             userExist.password
           );
           if (!comparePass) {
-            return;
+            return null;
           }
-          delete userExist.password;
-          return userExist;
+          const { _id, email, name, image, twitterId } = userExist.toObject();
+          return { id: _id.toString(), email, name, image, username: twitterId };
         } catch (error) {
-          console.log("something wents wrong while signin", error);
+          console.log("something went wrong while signing in", error);
+          return null; 
         }
       },
     }),
   ],
-  clientSecret:process.env.NEXTAUTH_SECRET,
+  secret:process.env.NEXTAUTH_SECRET,
+  session:{
+    strategy:"jwt"
+  },
   callbacks: {
-    async jwt({ token,account }: any) {
+    async jwt({ token,account,user }: any) {
       if(account?.provider){
         token.provider = account?.provider
+      }
+      if(user){
+        return {...token,email:user.email,id:user.id,name:user.name,image:user.image,username:user.username}
       }
       return token;
     },
     async session({ session, token }: any) {
       if (session?.user) {
         session.user.provider = token.provider;
+        session.user.id=token.id;
+        session.user.email=token.email;
+        session.user.name=token.name;
+        session.user.image=token.image;
+        session.user.username=token.username;
       }
       return session;
     },
   },
   pages: {
     signIn: "/login",
-    error: "/login",
   },
 };
