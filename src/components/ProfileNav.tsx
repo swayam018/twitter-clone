@@ -11,7 +11,7 @@ function ProfileNav({username}:any) {
           <Link href={`/${username}/replies`} className={`feedhead`}><span>Replies</span></Link>
           <Link href={`/${username}/media`} className={`feedhead `}><span>Media</span></Link>
           <Link href={`/${username}/likes`} className={`feedhead `}><span>Likes</span></Link>
-        </nav>
+        </nav> 
         <Posts />
       </div>
   )

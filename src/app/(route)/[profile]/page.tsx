@@ -27,7 +27,7 @@ const ProfilePage = () => {
         }
         else {
           console.log(resp);
-          setLoading(false);
+          setLoading(false); 
         }
       }).catch((error: any) => {
         console.log(error.message);

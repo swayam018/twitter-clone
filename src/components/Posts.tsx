@@ -26,7 +26,7 @@ function Posts({ post }: any) {
                 setIsLiked(true);
             }
         })
-    },[])
+    },[]) 
 
     return (
         <div className='flex flex-row py-4 px-4 gap-4 border-t border-gray-400  cursor-pointer max-md:px-2 max-md:gap-2'>
