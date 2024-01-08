@@ -81,6 +81,9 @@ function PostInput() {
 
 
     const onClickHandler = async ()=>{
+        if(!session){
+            return <div>Please Login</div> ;
+        }
         await axios.post('/api/tweet/posttweet',{text:text ,user:session?.user}).then((resp)=>{
             setPostStatus(true);
             setText("");
