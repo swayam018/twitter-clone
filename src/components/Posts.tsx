@@ -40,9 +40,9 @@ function Posts({ post }: any) {
             <div className=' w-full'>
                 <div className=' flex flex-row justify-between w-full items-center h-fit '>
                     <div className='flex flex-row gap-2 justify-start items-center max-[476px]:flex-col max-[476px]:justify-start max-[476px]:items-start max-[476px]:gap-0'>
-                        <div className=' max-w-[170px] overflow-hidden w-fit' > {post.name} </div>
+                        <div className=' w-fit max-w-[170px] overflow-hidden break-inside-avoid ' > {post.name} </div>
                         <div className='flex items-center gap-2  '>
-                            <div className='w-fit max-w-[170px] overflow-hidden'>@{post.username} </div>
+                            <div className='min-w-fit max-w-[170px] overflow-hidden'>@{post.username} </div>
                             <div className='w-fit max-w-[100px] overflow-hidden'>{post.createdTime}</div>
                         </div>
                     </div>

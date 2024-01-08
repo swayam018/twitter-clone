@@ -81,13 +81,14 @@ function PostInput() {
 
 
     const onClickHandler = async ()=>{
+        console.log(session);
         if(!session){
-            return <div>Please Login</div> ;
+            return <dialog open className=' z-50 absolute inset-x-1/2'>Please Login</dialog>
         }
         await axios.post('/api/tweet/posttweet',{text:text ,user:session?.user}).then((resp)=>{
             setPostStatus(true);
             setText("");
-            revalidatePath('(route)/home');
+            // revalidatePath('(route)/home');
         }).catch((error:any)=>{
             console.log(error.message);
         })

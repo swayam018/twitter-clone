@@ -7,9 +7,7 @@ import axios from 'axios';
 
 async function  HomePage() {
   const session:any =  await getServerSession(options);
-   if(!session){
-    redirect('/login')
-   }
+  
   return (
         <FeedPage  />
   )
