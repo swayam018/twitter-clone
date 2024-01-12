@@ -7,7 +7,6 @@ import axios from 'axios';
 import {HoverCard, HoverCardTrigger, HoverCardContent} from '@/components/ui/hover-card';
 async function  HomePage() {
   const session:any =  await getServerSession(options);
-  
   return (
         <FeedPage  />
   )

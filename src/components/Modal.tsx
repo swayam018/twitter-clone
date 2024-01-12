@@ -11,7 +11,7 @@ function Modal({ showModal, onClose }: any) {
               className='absolute px-1 text-lg rounded-full py-1 left-4 top-4 cursor-pointer text-white font-extrabold hover:bg-gray-400'
               onClick={()=>onClose(true)}>
               <RxCross2 />
-            </span>
+            </span> 
           </div>
         </div>
       )}

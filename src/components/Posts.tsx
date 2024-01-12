@@ -16,8 +16,13 @@ import { MdOutlineFavorite } from "react-icons/md";
 function Posts({ post }: any) {
     const { data: session }:any = useSession();
     const [isLiked,setIsLiked] = useState(false);
+    const [likeClicked,setLikeClicked] = useState(false);
     const onLikeHandler = async (post: any) => {
-        await axios.post('/api/tweet/likes', { user_id:session?.user?.id ,tweet_id:session.id })
+        if(!session){
+            console.log("please login");
+            return ;
+        }
+        await axios.post('/api/tweet/likes', { user_id:session?.user?.id ,tweet_id:post._id })
     }
 
     useEffect(()=>{
@@ -26,10 +31,10 @@ function Posts({ post }: any) {
                 setIsLiked(true);
             }
         })
-    },[]) 
+    },[])
 
     return (
-        <div className='flex flex-row py-4 px-4 gap-4 border-t border-gray-400  cursor-pointer max-md:px-2 max-md:gap-2'>
+        <div className='flex flex-row py-2 px-4 gap-4 border-t border-gray-400  cursor-pointer max-md:px-2 max-md:gap-2'>
             <div className=''>
                 <Link href={'/profile'}>
                     <div className=' bg-slate-400/20  rounded-full'>
@@ -38,15 +43,15 @@ function Posts({ post }: any) {
                 </Link>
             </div>
             <div className=' w-full'>
-                <div className=' flex flex-row justify-between w-full items-center h-fit '>
+                <div className=' flex flex-row justify-between w-full items-center '>
                     <div className='flex flex-row gap-2 justify-start items-center max-[476px]:flex-col max-[476px]:justify-start max-[476px]:items-start max-[476px]:gap-0'>
-                        <div className=' w-fit max-w-[170px] overflow-hidden break-inside-avoid ' > {post.name} </div>
+                        <div className='w-fit max-w-[152px] overflow-hidden whitespace-nowrap' >{post.name} </div>
                         <div className='flex items-center gap-2  '>
-                            <div className='min-w-fit max-w-[170px] overflow-hidden'>@{post.username} </div>
+                            <div className='w-fit max-w-[152px] overflow-hidden'>@saflajkkkkkkkkkkkkkkkkkkkkkkkkkafffffsklfja</div>
                             <div className='w-fit max-w-[100px] overflow-hidden'>{post.createdTime}</div>
                         </div>
                     </div>
-                    <div className=' hover:bg-primary/20 px-2 py-2 rounded-full hover:text-primary'>
+                    <div className=' hover:bg-primary1/20 px-2 py-2 rounded-full hover:text-primary1'>
                         <FiMoreHorizontal />
                     </div>
                 </div>
@@ -59,8 +64,8 @@ function Posts({ post }: any) {
                     )}
                 </div>
                 <div className=' flex flex-row justify-between w-full items-center mt-2'>
-                    <div className=' text-gray-400  hover:text-primary flex items-center gap-1 '>
-                        <div className='px-2 py-2 rounded-full text-xl hover:bg-primary/20 max-sm:text-lg '> <BiMessageRounded /></div>
+                    <div className=' text-gray-400  hover:text-primary1 flex items-center gap-1 '>
+                        <div className='px-2 py-2 rounded-full text-xl hover:bg-primary1/20 max-sm:text-lg '> <BiMessageRounded /></div>
                         <span> {post.comments.length} </span>
                     </div>
                     <div className=' text-gray-400 hover:text-green-400 flex items-center '>
@@ -68,17 +73,17 @@ function Posts({ post }: any) {
                         <span>{post.retweet.length}</span>
                     </div>
                     <div className='  hover:text-red-400 flex items-center ' >
-                        <div className={`px-2 py-2 rounded-full text-xl max-sm:text-lg hover:bg-red-400/20 ${isLiked?"text-red-700":"text-gray-400"} `} onClick={() => { onLikeHandler(post); setIsLiked(!isLiked) }}>{!isLiked?<GrFavorite /> :<MdOutlineFavorite/>}</div>
-                        <span>{isLiked?post.tweet_liked.length+1:post.tweet_liked.length}</span>
+                        <div className={`px-2 py-2 rounded-full text-xl max-sm:text-lg hover:bg-red-400/20 ${isLiked?"text-red-700":"text-gray-400"} `} onClick={() => { onLikeHandler(post); setIsLiked(!isLiked);setLikeClicked(!likeClicked); }}>{!isLiked?<GrFavorite /> :<MdOutlineFavorite/>}</div>
+                        <span>{isLiked && likeClicked?post.tweet_liked.length+1:post.tweet_liked.length}</span>
                     </div>
-                    <div className=' text-gray-400 hover:bg-primary/20 hover:text-primary items-center text-xl flex  max-sm:text-lg px-2 py-2 rounded-full'>
+                    <div className=' text-gray-400 hover:bg-primary1/20 hover:text-primary1 items-center text-xl flex  max-sm:text-lg px-2 py-2 rounded-full'>
                         <CgPoll />
                     </div>
                     <div className='text-gray-400 items-center text-xl flex max-sm:text-lg '>
-                        <div className='hover:bg-primary/20 hover:text-primary flex px-2 py-2 rounded-full'>
+                        <div className='hover:bg-primary1/20 hover:text-primary1 flex px-2 py-2 rounded-full'>
                             <IoBookmarkOutline />
                         </div>
-                        <div className='hover:bg-primary/20 hover:text-primary flex px-2 py-2 rounded-full'>
+                        <div className='hover:bg-primary1/20 hover:text-primary1 flex px-2 py-2 rounded-full'>
                             <FiUpload />
                         </div>
                     </div>

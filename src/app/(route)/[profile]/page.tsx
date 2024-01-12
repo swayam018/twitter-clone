@@ -14,6 +14,7 @@ import ProfileFeed from '@/components/ProfileFeed'
 
 const ProfilePage = () => {
   const username = usePathname();
+  console.log(username);
   const [userExist, setUserExist] = useState(false);
   const [loading, setLoading] = useState(true);
   const [userdata, setUserdata] = useState<Tprofile>();
@@ -36,7 +37,11 @@ const ProfilePage = () => {
       })
     }
     fetchProfile();
+
+    
   }, [])
+
+  
 
   return (
     <>
@@ -62,7 +67,7 @@ const ProfilePage = () => {
               </nav>
             </header>
             <Profile profile={userdata} />
-            <ProfileFeed/>
+            <ProfileFeed  />
           </div>
         ) : (<div className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${loading?"hidden":"block"}`}>
           <div className=' w-fit'>

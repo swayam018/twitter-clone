@@ -37,7 +37,7 @@ function Profile({ profile }: any) {
               <span className='usertag'><IoLocationOutline />{profile.location}</span>
               )}
               {/* <span className='usertag'><RiLinkM />websitedomain</span> */}
-              <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span>
+              {/* <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span> */}
               {profile.birthday && <span className='usertag'><BsBalloon />{profile.birthday}</span>}
               {/* <span className='usertag'><MdOutlineWorkOutline />interested topic</span> */}
             </div>

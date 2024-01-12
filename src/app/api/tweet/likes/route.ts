@@ -10,8 +10,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ message: "Tweet is not valid" });
     }
     var isLiked = false;
-    await isTweetExist.tweet_liked.map((isliked: any) => {
-      if (isliked.toString() === user_id) {
+    await isTweetExist.tweet_liked.map((liked: any) => {
+      if (liked.toString() === user_id) {
         isLiked = true;
       }
     });
@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
       const LikedPerson = await isTweetExist.tweet_liked.filter((liked_users: any) => liked_users.toString() !== user_id );
       isTweetExist.tweet_liked = LikedPerson;
       isTweetExist.save();
-      return NextResponse.json({ message: "Tweet is not valid" });
+      return NextResponse.json({ message: "Tweet is disliked successfully" });
     }
     await isTweetExist.tweet_liked.push(user_id);
     await isTweetExist.save();

@@ -16,10 +16,10 @@ const NavigationItems = [
 ];
 
 function BottomBar() {
-  return (
-    <div className='relative hidden max-[482px]:inline-block'>
-        <div className='flex justify-between items-center fixed bottom-0 bg-black/80 backdrop-blur-sm backdrop-saturate-20 w-screen pr-4'>
-        {NavigationItems.map((items: any, index) => (
+    return (
+        <div className='relative hidden max-[500px]:inline-block'>
+            <div className='flex justify-between items-center fixed bottom-0 bg-black/80 backdrop-blur-sm backdrop-saturate-20 w-screen pr-4 left-0'>
+                {NavigationItems.map((items: any, index) => (
                     <Link
                         href={`/${items?.title.toLowerCase()}`}
                         key={index}
@@ -29,9 +29,9 @@ function BottomBar() {
                         </div>
                     </Link>
                 ))}
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default BottomBar

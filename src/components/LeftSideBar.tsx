@@ -5,7 +5,7 @@ import { GrNotification } from "react-icons/gr";
 import { IoSearchOutline } from "react-icons/io5";
 import { MdMailOutline } from "react-icons/md";
 import { IoPeopleOutline } from "react-icons/io5";
-import { IoPeopleSharp } from "react-icons/io5"; //clicked value
+// import { IoPeopleSharp } from "react-icons/io5"; //clicked value
 import { FaXTwitter } from "react-icons/fa6";
 import { FaRegUser } from "react-icons/fa6";
 import { FaUser } from "react-icons/fa6";
@@ -44,7 +44,7 @@ function LeftSideBar() {
     
     
     return (
-        <aside className=" w-72 h-screen flex flex-col bg-black max-xl:items-end max-xl:w-fit sticky top-0 overflow-auto max-[482px]:hidden px-1 max-xl:px-0 cursor-pointer">
+        <aside className=" w-72 h-screen flex flex-col bg-black max-xl:items-end max-xl:w-fit sticky top-0 overflow-auto max-[500px]:hidden px-1 max-xl:px-0 cursor-pointer">
              {open && (<div ref={modalref} className="flex flex-col rounded-lg py-5 gap-2 items-center justify-between shadow-modal shadow-slate-50 text-lg h-fit absolute  bottom-[74px]  bg-black w-fit z-50 font-semibold triangle ">
                         <button onClick={()=>signOut()} className=" hover:bg-gray-400/10 w-full py-2 pl-5">Log out {session?.user?.name}</button>
                         <Link href={'/login'} className=" hover:bg-gray-400/10 w-full  py-2 pl-5">Add an existing account</Link>

@@ -14,7 +14,7 @@ async function RightSideBar() {
       <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg '>
         <h1>Subscribe to Premium</h1>
         <p>Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
-        <button type="button" className=" bg-primary py-2 text-lg px-5 rounded-full ">Subscribe</button>
+        <button type="button" className=" bg-primary1 py-2 text-lg px-5 rounded-full ">Subscribe</button>
       </div>
 
         <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg '> {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
