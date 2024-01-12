@@ -1,16 +1,17 @@
 import React from 'react'
 import { IoSearchOutline } from "react-icons/io5";
 import { FiMoreHorizontal } from "react-icons/fi";
-import { getServerSession } from 'next-auth';
 
 async function RightSideBar() {
 
   return (
-    <div className=' w-[350px] pl-4 pt-2 flex flex-col gap-4 max-[1070px]:w-[280px] max-[1025px]:hidden relative'>
-      <div className=' w-full flex-row flex gap-4 items-center justify-start py-2 bg-gray-500/40 px-4 rounded-full'>
+    <div className=' w-[350px] pl-4 flex flex-col gap-4 max-[1070px]:w-[280px] max-[1025px]:hidden relative'>
+     <div className=' w-full sticky top-0 bg-black py-4 z-40'>
+     <div className=' w-full flex-row flex gap-4 items-center justify-start py-2 bg-gray-500/40 px-4 rounded-full sticky top-0 bg-black'>
         <IoSearchOutline />
         <input type='text' placeholder='Search' className=' outline-none bg-transparent text-lg  ' />
       </div>
+     </div>
       <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg '>
         <h1>Subscribe to Premium</h1>
         <p>Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
@@ -30,7 +31,7 @@ async function RightSideBar() {
           </div>
         ))}
         </div>
-        <div className='sticky top-0 '> <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg'>
+        <div className='sticky top-20 '> <div className=' w-full flex-col flex gap-4 items-start justify-start py-2 bg-gray-500/40 px-4 rounded-lg'>
           <h1>who to follow</h1>
         </div>
       </div>

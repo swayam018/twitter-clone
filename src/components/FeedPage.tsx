@@ -7,6 +7,7 @@ import BottomBar from './BottomBar'
 import axios from 'axios'
 import { useQuery } from '@tanstack/react-query'
 import LoadingScreen from './Loading'
+import Errorpage from './Error'
 
 
 const getTweets = async () => {
@@ -19,14 +20,17 @@ const getTweets = async () => {
 }
 function FeedPage() {
 
-  const query = useQuery({ queryKey: ['tweets'], queryFn: getTweets });
+  const query = useQuery({
+    queryKey: ['tweets'],
+    queryFn: getTweets,
+  });
   if (query.isLoading) {
-    return <LoadingScreen/>
+    return <LoadingScreen />
   }
 
   if (query.error) {
-    console.error('Error fetching tweets:', query.error);
-    return <div>Error loading tweets</div>;
+    // console.error('Error fetching tweets:', query.error);
+    return <Errorpage />;
   }
 
   if (!query.data) {

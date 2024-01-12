@@ -1,9 +1,9 @@
 "use client"
 import Lottie from 'lottie-react'
 import React from 'react'
-import loadingData from '../../public/loading.json';
+import loadingData from '../../../public/loading.json';
 
-function LoadingScreen() {
+function LoadingHome() {
     return (
         <main className=' text-white bg-black w-[598px] relative border-l border-r border-gray-500 max-[725px]:w-fit max-[482px]:border-none '>
             <div className=' w-full h-screen flex justify-center items-center'>
@@ -15,4 +15,4 @@ function LoadingScreen() {
     )
 }
 
-export default LoadingScreen
+export default LoadingHome

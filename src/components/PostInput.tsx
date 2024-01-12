@@ -12,16 +12,16 @@ import Image from 'next/image';
 import { RxCross2 } from "react-icons/rx";
 import axios from 'axios';
 import { useSession } from "next-auth/react"
-import { revalidatePath } from 'next/cache';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function PostInput() {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const filegifRef = useRef<HTMLInputElement | null>(null);
     const [files, setFiles] = useState([]);
     const [previews, setPreviews] = useState<string[]>([]);
-    const [text,setText] = useState("");
-    const [postStatus,setPostStatus] = useState(false);
-    const {data : session ,status} = useSession();
+    const [text, setText] = useState("");
+    const { data: session } = useSession();
+    const queryClient = useQueryClient();
 
 
     const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -57,7 +57,7 @@ function PostInput() {
     };
 
     useEffect(() => {
-        
+
         if (!files) return;
         let tmp = [];
         for (let i = 0; i < files?.length; i++) {
@@ -71,29 +71,32 @@ function PostInput() {
                 URL.revokeObjectURL(objectUrls[i]);
             };
         }
-        
+
     }, [files]);
 
     const imageHandler = (index: any) => {
         let newArray = [...previews.slice(0, index), ...previews.slice(index + 1)];
         setPreviews(newArray);
     }
-
-
-    const onClickHandler = async ()=>{
-        console.log(session);
-        if(!session){
-            return <dialog open className=' z-50 absolute inset-x-1/2'>Please Login</dialog>
-        }
-        await axios.post('/api/tweet/posttweet',{text:text ,user:session?.user}).then((resp)=>{
-            setPostStatus(true);
-            setText("");
-            // revalidatePath('(route)/home');
-        }).catch((error:any)=>{
-            console.log(error.message);
-        })
+    if (!session) {
+        return <h1>Please Login</h1>
     }
-  
+
+    const postMutation = useMutation({
+        mutationFn: async () => {
+            await axios.post('/api/tweet/posttweet', { text: text, user: session?.user }).then((resp) => {
+                setText("");
+                return resp.data;
+            }).catch((error: any) => {
+                console.log(error.message);
+                return error.message;
+            })
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["tweets"] })
+        },
+    })
+
     return (
         <div className=' px-4 mt-4 flex flex-row max-sm:px-2  '>
             <div className='pr-4 max-md:pr-2'>
@@ -143,7 +146,7 @@ function PostInput() {
                         <div className='icons'><IoLocationOutline /></div>
                     </div>
                     <div className=' px-4 text-primary1'>{text.length}/250</div>
-                    <button type="submit" disabled={text.length<1} className={` disabled:bg-gray-400/50 disabled:cursor-not-allowed bg-primary1 py-2 px-5 text-lg  rounded-full`} onClick={onClickHandler}>Post</button>
+                    <button type="submit" disabled={text.length < 1 } className={` disabled:bg-gray-400/50 disabled:cursor-not-allowed bg-primary1 py-2 px-5 text-lg  rounded-full`} onClick={() => postMutation.mutate()}>Post</button>
                 </div>
             </div>
         </div>
