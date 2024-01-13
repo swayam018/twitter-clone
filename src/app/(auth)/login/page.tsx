@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { SiGithub } from 'react-icons/si'
 import { redirect, useRouter } from 'next/navigation';
 

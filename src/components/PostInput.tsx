@@ -78,10 +78,6 @@ function PostInput() {
         let newArray = [...previews.slice(0, index), ...previews.slice(index + 1)];
         setPreviews(newArray);
     }
-    if (!session) {
-        return <h1>Please Login</h1>
-    }
-
     const postMutation = useMutation({
         mutationFn: async () => {
             await axios.post('/api/tweet/posttweet', { text: text, user: session?.user }).then((resp) => {
@@ -96,6 +92,10 @@ function PostInput() {
             queryClient.invalidateQueries({ queryKey: ["tweets"] })
         },
     })
+    if (!session) {
+        return <h1>Please Login</h1>
+    }
+
 
     return (
         <div className=' px-4 mt-4 flex flex-row max-sm:px-2  '>
