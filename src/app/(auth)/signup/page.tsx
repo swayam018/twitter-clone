@@ -6,9 +6,9 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { RxCross2 } from 'react-icons/rx'
+import AuthLayout from '../layout'
 
-
-function Signup() {
+function Signup () {
   const [formData, setformData] = useState({
     name: "",
     email: "",
@@ -26,7 +26,7 @@ function Signup() {
     }).catch((error) => { console.log(error) })
   }
   const onClose = () => {
-    router.replace('/');
+    router.push('/');
   }
 
 
@@ -87,4 +87,4 @@ function Signup() {
   )
 }
 
-export default Signup
+export default Signup;

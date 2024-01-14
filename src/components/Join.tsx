@@ -3,9 +3,10 @@ import { signIn } from 'next-auth/react';
 import React from 'react'
 import { SiGithub } from 'react-icons/si';
 import { FaFacebook } from "react-icons/fa";
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 function Join() {
+  const router = useRouter();
   return (
     <div className=' flex flex-row min-h-screen bg-black max-lg:h-full max-lg:justify-center relative'>
       <div className=' w-1/2  h-screen flex justify-center items-center max-lg:hidden'>
@@ -53,10 +54,10 @@ function Join() {
               <span>Sign in with FaceBook</span>
             </button>
             <div className=' flex items-center w-80 gap-2 max-[380px]:w-64'><span className='w-full h-[1px] bg-gray-700' />or<span className='w-full h-[1px] bg-gray-700' /></div>
-            <Link href={'/signup'} className=" w-80 bg-primary py-2 text-lg rounded-full max-[380px]:w-64 text-center " >Create account</Link>
+            <button className=" w-80 bg-primary py-2 text-lg rounded-full max-[380px]:w-64 text-center "  onClick={()=>router.push('/signup')}>Create account</button>
             <div className=' flex flex-col gap-4'>
               <span>Already have an account?</span>
-              <Link href={'/login'} className=" w-80 max-[380px]:w-64 text-primary py-2 text-lg rounded-full border border-slate-50 hover:bg-primary/20 font-semibold text-center ">Sign in</Link>
+              <button className=" w-80 max-[380px]:w-64 text-primary py-2 text-lg rounded-full border border-slate-50 hover:bg-primary/20 font-semibold text-center " onClick={()=>router.push('/signup')}>Sign in</button>
             </div>
           </div>
         </div>
