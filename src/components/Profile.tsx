@@ -1,28 +1,53 @@
-import React from 'react'
+"use client"
+import React, { useRef, useState } from 'react'
 import { IoLocationOutline } from "react-icons/io5";
 import { CgCalendarDates } from "react-icons/cg";
 import { BsBalloon } from "react-icons/bs";
 import { RiLinkM } from "react-icons/ri";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
+
+type TSession = {
+  email: string;
+  id: string;
+  name: string;
+  provider: string;
+  username: string
+}
 
 function Profile({ profile }: any) {
-  console.log(profile);
+  const isFollowing = useRef(false);
+  const isUser = useRef(false);
+  const { data:session }:any= useSession();
+  console.log(profile._id,session?.user?.id)
+  if (session) {
+    if (profile._id === session?.user?.id) {
+      isUser.current=true;
+    }
+    profile.followers.map((followersid:any)=>{
+      if(followersid.toString() ===session.user?.id) {
+        isFollowing.current=true;
+      }
+    })
+  }
+
+  // console.log(session);
+  // console.log(profile);
   return (
     <div className='text-white bg-black w-[598px] relative border-r border-gray-500 '>
       <div>
         <div className=' w-full h-52 bg-gray-800'>
-        <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={400} height={128} alt='profile image' className=' overflow-hidden w-full h-52 object-cover'/>
+          <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={400} height={128} alt='profile image' className=' overflow-hidden w-full h-52 object-cover' />
         </div>
       </div>
       <div>
         <div className=' h-fit w-full relative px-8'>
           <div className=' w-32 h-32 rounded-full border-4 border-black absolute inset-x-10 inset-y-[-70px] overflow-hidden'>
-            <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={128} height={128} alt='profile image' className=' overflow-hidden'/>
+            <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={128} height={128} alt='profile image' className=' overflow-hidden' />
           </div>
           <div className=' h-16 py-4 flex justify-end items-start'>
-            <button className=' border border-white hover:bg-slate-800 px-4 py-2 rounded-full'>Edit profile</button>
-            {/* <button className=' bg-white text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full'>Edit profile</button> */}
+            {isUser? <button className=' border border-white hover:bg-slate-800 px-4 py-2 rounded-full'>Edit profile</button>: isFollowing?<button className=' bg-primary1 text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full'>UnFollow</button>: <button className=' bg-primary1 text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full'>Follow</button>}
           </div>
           <div className=' h-full flex flex-col gap-4 pt-2'>
             <div className=''>
@@ -33,8 +58,8 @@ function Profile({ profile }: any) {
               {profile.bio}
             </div>
             <div className=' flex flex-wrap justify-start leading-2 text-gray-500'>
-              {profile.location&&(
-              <span className='usertag'><IoLocationOutline />{profile.location}</span>
+              {profile.location && (
+                <span className='usertag'><IoLocationOutline />{profile.location}</span>
               )}
               {/* <span className='usertag'><RiLinkM />websitedomain</span> */}
               {/* <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span> */}
@@ -43,11 +68,11 @@ function Profile({ profile }: any) {
             </div>
             <div className=' flex gap-4'>
               <div className=' flex gap-2 items-center'>
-                <span className=' font-bold text-xl '>{profile.following}</span>
+                <span className=' font-bold text-xl '>{profile.following.length}</span>
                 <span className=' font-thin text-base'>Following</span>
               </div>
               <div className=' flex gap-2 items-center'>
-                <span className=' font-bold text-xl '>{profile.followers}</span>
+                <span className=' font-bold text-xl '>{profile.followers.length}</span>
                 <span className=' font-thin text-base'>Followers</span>
               </div>
             </div>

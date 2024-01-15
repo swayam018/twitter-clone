@@ -12,10 +12,11 @@ import Errorpage from './Error'
 
 const getTweets = async () => {
   try {
-    const data = await axios.get('/api/tweet/tweetfeed')
+    const data = await axios.get('/api/tweet/tweetfeed');
     return data.data.allTweets;
   } catch (error: any) {
-    console.log(error.message)
+    console.log(error.message);
+    return null;
   }
 }
 function FeedPage() {
@@ -38,16 +39,13 @@ function FeedPage() {
   }
 
   return (
-    <main className=' text-white bg-black w-[598px] relative border-l border-r border-gray-500 max-[725px]:w-fit max-[482px]:border-none '>
-      <Header />
-      <PostInput />
-      <BottomBar />
+     <>
       {query.data.length > 0 && query.data.map((post: any, index: any) => (
         <React.Fragment key={index}>
           <Posts post={post} />
         </React.Fragment>
       ))}
-    </main>
+     </>
   )
 }
 

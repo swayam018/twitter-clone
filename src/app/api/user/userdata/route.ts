@@ -20,8 +20,8 @@ export async function POST(request:NextRequest){
             banner_image:userExist.banner_image,
             bio:userExist.bio,
             birthday:userExist.birthday,
-            followers:userExist.followers.length,
-            following:userExist.following.length,
+            followers:userExist.followers,
+            following:userExist.following,
             createdTime:userExist.createdTime,
             // tweets:userExist.tweets
         }

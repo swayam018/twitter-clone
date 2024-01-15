@@ -92,10 +92,6 @@ function PostInput() {
             queryClient.invalidateQueries({ queryKey: ["tweets"] })
         },
     })
-    if (!session) {
-        return <h1>Please Login</h1>
-    }
-
 
     return (
         <div className=' px-4 mt-4 flex flex-row max-sm:px-2  '>

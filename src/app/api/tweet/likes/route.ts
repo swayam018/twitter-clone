@@ -26,5 +26,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ message: "Tweet is liked successfully" });
   } catch (error: any) {
     console.log(error.message);
+    return NextResponse.json({ message: "Tweet is liked failed" });
   }
 }
