@@ -15,14 +15,13 @@ export async function POST(request: NextRequest) {
     //is currentuser is already following user
     var isFollowing = false;
     await isUser.following.map((following: any) => {
-        console.log(FollowingUser,following)
-      if (following.toString() === currentUser) {
+        if (following.toString()=== FollowingUser) {
         isFollowing = true;
       }
     });
 
     if (isFollowing) {
-      const FollowingUser = await isUser.following.filter(
+      const cUser = await isUser.following.filter(
         (isfollowing: any) => isfollowing.toString() !== FollowingUser,
       );
       const FollowedUser = await followedUser.followers.filter(
@@ -30,7 +29,7 @@ export async function POST(request: NextRequest) {
       );
       followedUser.followers = FollowedUser;
       followedUser.save();
-      isUser.following = FollowingUser;
+      isUser.following = cUser;
       isUser.save();
       return NextResponse.json({ message: "User is unfollowed now" });
     }

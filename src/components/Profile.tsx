@@ -7,6 +7,8 @@ import { RiLinkM } from "react-icons/ri";
 import { MdOutlineWorkOutline } from "react-icons/md";
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
+import { useMutation, useQueryClient, } from '@tanstack/react-query'
+import axios from 'axios';
 
 type TSession = {
   email: string;
@@ -19,73 +21,81 @@ type TSession = {
 function Profile({ profile }: any) {
   const isFollowing = useRef(false);
   const isUser = useRef(false);
-  const { data:session }:any= useSession();
-  console.log(profile._id,session?.user?.id)
+  const { data: session }: any = useSession();
+  const queryClient = useQueryClient();
   if (session) {
     if (profile._id === session?.user?.id) {
-      isUser.current=true;
+      console.log("this is called again");
+      isUser.current = true;
     }
-    profile.followers.map((followersid:any)=>{
-      if(followersid.toString() ===session.user?.id) {
-        isFollowing.current=true;
+    profile.followers.map((followersid: any) => {
+      if (followersid.toString() === session.user?.id) {
+        isFollowing.current = true;
       }
     })
   }
 
-  // console.log(session);
-  // console.log(profile);
-  return (
-    <div className='text-white bg-black w-[598px] relative border-r border-gray-500 '>
-      <div>
-        <div className=' w-full h-52 bg-gray-800'>
-          <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={400} height={128} alt='profile image' className=' overflow-hidden w-full h-52 object-cover' />
-        </div>
+  const editProfileHandler = () => { }
+  const followandunfollowHandler = useMutation({
+    mutationFn: async () => {
+      await axios.post('/api/user/follow').then((response) => response.data).catch((error: any) => {
+        console.log(error.message);
+        return error.message;
+      })
+    },
+    onSuccess:()=>{
+      queryClient.invalidateQueries({ queryKey: ["profile"] })
+    },
+  })
+return (
+  <div className='text-white bg-black w-[598px] relative border-r border-gray-500 '>
+    <div>
+      <div className=' w-full h-52 bg-gray-800'>
+        <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={400} height={128} alt='profile image' className=' overflow-hidden w-full h-52 object-cover' />
       </div>
-      <div>
-        <div className=' h-fit w-full relative px-8'>
-          <div className=' w-32 h-32 rounded-full border-4 border-black absolute inset-x-10 inset-y-[-70px] overflow-hidden'>
-            <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={128} height={128} alt='profile image' className=' overflow-hidden' />
+    </div>
+    <div>
+      <div className=' h-fit w-full relative px-8'>
+        <div className=' w-32 h-32 rounded-full border-4 border-black absolute inset-x-10 inset-y-[-70px] overflow-hidden'>
+          <Image src={'https://static.vecteezy.com/system/resources/thumbnails/009/292/244/small/default-avatar-icon-of-social-media-user-vector.jpg'} width={128} height={128} alt='profile image' className=' overflow-hidden' />
+        </div>
+        <div className=' h-16 py-4 flex justify-end items-start'>
+          {isUser.current ? <button className=' border border-white hover:bg-slate-800 px-4 py-2 rounded-full' onClick={editProfileHandler}>Edit profile </button> : isFollowing.current ? <button className=' bg-primary1 text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full' onClick={()=>followandunfollowHandler.mutate()}>UnFollow</button> : <button className=' bg-primary1 text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full'  onClick={()=>followandunfollowHandler.mutate()}>Follow</button>}
+        </div>
+        <div className=' h-full flex flex-col gap-4 pt-2'>
+          <div className=''>
+            <h1 className=' text-2xl font-semibold tracking-widest'> {profile.name} </h1>
+            <span>@{profile.twitterId}</span>
           </div>
-          <div className=' h-16 py-4 flex justify-end items-start'>
-            {isUser? <button className=' border border-white hover:bg-slate-800 px-4 py-2 rounded-full'>Edit profile</button>: isFollowing?<button className=' bg-primary1 text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full'>UnFollow</button>: <button className=' bg-primary1 text-black font-semibold hover:bg-slate-100/80 px-4 py-2 rounded-full'>Follow</button>}
+          <div className=' h-fit w-full text-base font-thin'>
+            {profile.bio}
           </div>
-          <div className=' h-full flex flex-col gap-4 pt-2'>
-            <div className=''>
-              <h1 className=' text-2xl font-semibold tracking-widest'> {profile.name} </h1>
-              <span>@{profile.twitterId}</span>
+          <div className=' flex flex-wrap justify-start leading-2 text-gray-500'>
+            {profile.location && (
+              <span className='usertag'><IoLocationOutline />{profile.location}</span>
+            )}
+            {/* <span className='usertag'><RiLinkM />websitedomain</span> */}
+            {/* <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span> */}
+            {profile.birthday && <span className='usertag'><BsBalloon />{profile.birthday}</span>}
+            {/* <span className='usertag'><MdOutlineWorkOutline />interested topic</span> */}
+          </div>
+          <div className=' flex gap-4'>
+            <div className=' flex gap-2 items-center'>
+              <span className=' font-bold text-xl '>{profile.following.length}</span>
+              <span className=' font-thin text-base'>Following</span>
             </div>
-            <div className=' h-fit w-full text-base font-thin'>
-              {profile.bio}
+            <div className=' flex gap-2 items-center'>
+              <span className=' font-bold text-xl '>{profile.followers.length}</span>
+              <span className=' font-thin text-base'>Followers</span>
             </div>
-            <div className=' flex flex-wrap justify-start leading-2 text-gray-500'>
-              {profile.location && (
-                <span className='usertag'><IoLocationOutline />{profile.location}</span>
-              )}
-              {/* <span className='usertag'><RiLinkM />websitedomain</span> */}
-              {/* <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span> */}
-              {profile.birthday && <span className='usertag'><BsBalloon />{profile.birthday}</span>}
-              {/* <span className='usertag'><MdOutlineWorkOutline />interested topic</span> */}
-            </div>
-            <div className=' flex gap-4'>
-              <div className=' flex gap-2 items-center'>
-                <span className=' font-bold text-xl '>{profile.following.length}</span>
-                <span className=' font-thin text-base'>Following</span>
-              </div>
-              <div className=' flex gap-2 items-center'>
-                <span className=' font-bold text-xl '>{profile.followers.length}</span>
-                <span className=' font-thin text-base'>Followers</span>
-              </div>
-            </div>
-            <div>
-              Followed by someone anyone
-            </div>
+          </div>
+          <div>
+            Followed by someone anyone
           </div>
         </div>
       </div>
     </div>
-
-
-  )
+  </div>
+)
 }
-
 export default Profile
