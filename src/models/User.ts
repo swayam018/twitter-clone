@@ -45,14 +45,6 @@ const userSchema = new mongoose.Schema({
   following: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   },
-  follower_count: {
-    type: Number,
-    default: 0,
-  },
-  following_count: {
-    type: Number,
-    default: 0,
-  },
   role: {
     type: String,
   },

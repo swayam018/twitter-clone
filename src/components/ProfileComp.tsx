@@ -10,38 +10,32 @@ import { Tprofile } from "../../type";
 import Lottie from "lottie-react";
 import loadingData from "../../public/loading.json";
 import ProfileFeed from "./ProfileFeed";
+import { useQuery } from "@tanstack/react-query";
 
 const ProfileComp = () => {
   const username = usePathname();
   const [userExist, setUserExist] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const [userdata, setUserdata] = useState<Tprofile>();
-  useEffect(() => {
-    const fetchProfile = async () => {
-      await axios
-        .post("api/user/userdata", { username: username.split("/")[1] })
-        .then((resp: any) => {
-          if (resp.data.status === 200) {
-            setUserdata(resp.data.user);
+  
+  const userProfile = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      try {
+        const data = await axios
+          .post("api/user/userdata", { username: username.split("/")[1] });
+          if(data.data.status===200){
             setUserExist(true);
-            setLoading(false);
-          } else {
-            console.log(resp);
-            setLoading(false);
+            return data.data.user;
           }
-        })
-        .catch((error: any) => {
-          console.log(error.message);
-          setUserExist(false);
-          setLoading(false);
-        });
-    };
-    fetchProfile();
-  }, []);
-
+          return null;
+      } catch (error: any) {
+        console.log(error.message);
+        return null;
+      }
+    }
+  })
   return (
     <>
-      {loading && (
+      {userProfile.isLoading && (
         <div className=" w-[598px] max-h-screen  h-screen flex justify-center items-center">
           <div className=" w-20 h-20">
             <Lottie animationData={loadingData} loop={true} />
@@ -50,9 +44,8 @@ const ProfileComp = () => {
       )}
       {userExist ? (
         <div
-          className={` text-white bg-black w-[598px] relative border-l border-r  border-gray-500 max-[725px]:w-fit max-[482px]:border-none ${
-            loading ? "hidden" : "block"
-          }  `}
+          className={` text-white bg-black w-[598px] relative border-l border-r  border-gray-500 max-[725px]:w-fit max-[482px]:border-none ${userProfile.isLoading ? "hidden" : "block"
+            }  `}
         >
           <header className=" sticky top-0 backdrop-blur-sm backdrop-saturate-200 bg-black/80  w-full z-50 ">
             <nav className="flex flex-row h-[53px] items-center gap-10 w-fit pl-8 pb-1">
@@ -61,20 +54,19 @@ const ProfileComp = () => {
               </div>
               <div className=" flex flex-col  text-lg">
                 <span className=" font-semibold tracking-widest ">
-                  {userdata?.name}
+                  {userProfile.data?.name}
                 </span>
                 <span className=" text-sm">5 posts</span>
               </div>
             </nav>
           </header>
-          <Profile profile={userdata} />
+          <Profile profile={userProfile.data} />
           <ProfileFeed />
         </div>
       ) : (
         <div
-          className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${
-            loading ? "hidden" : "block"
-          }`}
+          className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${userProfile.isLoading ? "hidden" : "block"
+            }`}
         >
           <div className=" w-fit">User does not exist</div>
         </div>
