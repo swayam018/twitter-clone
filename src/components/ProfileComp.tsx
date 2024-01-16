@@ -15,6 +15,7 @@ import { useQuery } from "@tanstack/react-query";
 const ProfileComp = () => {
   const username = usePathname();
   const [userExist, setUserExist] = useState(false);
+<<<<<<< HEAD
   
   const userProfile = useQuery({
     queryKey: ["profile"],
@@ -33,6 +34,50 @@ const ProfileComp = () => {
       }
     }
   })
+=======
+
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     await axios
+  //       .post("api/user/userdata", { username: username.split("/")[1] })
+  //       .then((resp: any) => {
+  //         if (resp.data.status === 200) {
+  //           setUserdata(resp.data.user);
+  //           setUserExist(true);
+  //           setLoading(false);
+  //         } else {
+  //           console.log(resp);
+  //           setLoading(false);
+  //         }
+  //       })
+  //       .catch((error: any) => {
+  //         console.log(error.message);
+  //         setUserExist(false);
+  //         setLoading(false);
+  //       });
+  //   };
+  //   fetchProfile();
+  // }, []);
+
+  const userdata = useQuery({
+    queryKey: ["profile"],
+    queryFn: async () => {
+      await axios
+        .post("api/user/userdata", { username: username.split("/")[1] }).then((resp) => {
+          if (resp.data.status === 200) {
+            setUserExist(true);
+            return resp.data;
+          } else {
+            console.log(resp);
+          }
+        })
+        .catch((error: any) => {
+          console.log(error.message);
+        });
+    }
+  })
+
+>>>>>>> e2b8a352b73808ccf270ac98a89758ed2065136e
   return (
     <>
       {userProfile.isLoading && (
@@ -44,7 +89,11 @@ const ProfileComp = () => {
       )}
       {userExist ? (
         <div
+<<<<<<< HEAD
           className={` text-white bg-black w-[598px] relative border-l border-r  border-gray-500 max-[725px]:w-fit max-[482px]:border-none ${userProfile.isLoading ? "hidden" : "block"
+=======
+          className={` text-white bg-black w-[598px] relative border-l border-r  border-gray-500 max-[725px]:w-fit max-[482px]:border-none ${userdata.isLoading ? "hidden" : "block"
+>>>>>>> e2b8a352b73808ccf270ac98a89758ed2065136e
             }  `}
         >
           <header className=" sticky top-0 backdrop-blur-sm backdrop-saturate-200 bg-black/80  w-full z-50 ">
@@ -65,7 +114,11 @@ const ProfileComp = () => {
         </div>
       ) : (
         <div
+<<<<<<< HEAD
           className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${userProfile.isLoading ? "hidden" : "block"
+=======
+          className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${loading ? "hidden" : "block"
+>>>>>>> e2b8a352b73808ccf270ac98a89758ed2065136e
             }`}
         >
           <div className=" w-fit">User does not exist</div>
