@@ -61,7 +61,7 @@ const ProfileComp = () => {
             </nav>
           </header>
           <Profile profile={userProfile.data} />
-          <ProfileFeed />
+          <ProfileFeed userdata = {userProfile.data} />
         </div>
       ) : (
         <div

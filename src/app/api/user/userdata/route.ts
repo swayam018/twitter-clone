@@ -23,7 +23,7 @@ export async function POST(request:NextRequest){
             followers:userExist.followers,
             following:userExist.following,
             createdTime:userExist.createdTime,
-            // tweets:userExist.tweets
+            tweets:userExist.tweets
         }
 
         return NextResponse.json({message:"user found",user,status:200});
