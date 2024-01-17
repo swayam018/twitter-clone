@@ -15,7 +15,6 @@ import { useQuery } from "@tanstack/react-query";
 const ProfileComp = () => {
   const username = usePathname();
   const [userExist, setUserExist] = useState(false);
-<<<<<<< HEAD
   
   const userProfile = useQuery({
     queryKey: ["profile"],
@@ -34,7 +33,6 @@ const ProfileComp = () => {
       }
     }
   })
-=======
 
   // useEffect(() => {
   //   const fetchProfile = async () => {
@@ -76,8 +74,6 @@ const ProfileComp = () => {
         });
     }
   })
-
->>>>>>> e2b8a352b73808ccf270ac98a89758ed2065136e
   return (
     <>
       {userProfile.isLoading && (
@@ -89,12 +85,8 @@ const ProfileComp = () => {
       )}
       {userExist ? (
         <div
-<<<<<<< HEAD
           className={` text-white bg-black w-[598px] relative border-l border-r  border-gray-500 max-[725px]:w-fit max-[482px]:border-none ${userProfile.isLoading ? "hidden" : "block"
-=======
-          className={` text-white bg-black w-[598px] relative border-l border-r  border-gray-500 max-[725px]:w-fit max-[482px]:border-none ${userdata.isLoading ? "hidden" : "block"
->>>>>>> e2b8a352b73808ccf270ac98a89758ed2065136e
-            }  `}
+      }`}
         >
           <header className=" sticky top-0 backdrop-blur-sm backdrop-saturate-200 bg-black/80  w-full z-50 ">
             <nav className="flex flex-row h-[53px] items-center gap-10 w-fit pl-8 pb-1">
@@ -114,11 +106,7 @@ const ProfileComp = () => {
         </div>
       ) : (
         <div
-<<<<<<< HEAD
           className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${userProfile.isLoading ? "hidden" : "block"
-=======
-          className={` w-[598px] flex justify-center h-screen max-h-screen items-center ${loading ? "hidden" : "block"
->>>>>>> e2b8a352b73808ccf270ac98a89758ed2065136e
             }`}
         >
           <div className=" w-fit">User does not exist</div>
