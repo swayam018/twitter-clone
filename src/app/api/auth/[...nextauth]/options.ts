@@ -88,7 +88,7 @@ export const options: any = {
             userExist.password
           );
           if (!comparePass) {
-            return null;
+            return null; 
           }
           const { _id, email, name, image, twitterId } = userExist.toObject();
           return { id: _id.toString(), email, name, image, username: twitterId };

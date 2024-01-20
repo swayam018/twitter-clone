@@ -12,6 +12,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { MdOutlineFavorite } from "react-icons/md";
 import { BsDot } from "react-icons/bs";
+import { useRouter } from 'next/navigation';
 
 
 
@@ -19,6 +20,7 @@ function Posts({ post }: any) {
     const { data: session }:any = useSession();
     const [isLiked,setIsLiked] = useState(false);
     const [likeClicked,setLikeClicked] = useState(false);
+    const router = useRouter();
     const onLikeHandler = async (post: any) => {
         if(!session){
             console.log("please login");
@@ -35,9 +37,10 @@ function Posts({ post }: any) {
         })
 
     },[])
+    console.log(post);
 
     return (
-        <div className='flex flex-row py-2 px-4 gap-4 border-t border-gray-400  cursor-pointer max-md:px-2 max-md:gap-2'>
+        <div className='flex flex-row py-2 px-4 gap-4 border-t border-gray-400  cursor-pointer max-md:px-2 max-md:gap-2' onClick={()=> router.push(`/${post.username}/`)}>
             <div className=''>
                 <Link href={'/profile'}>
                     <div className=' bg-slate-400/20  rounded-full'>

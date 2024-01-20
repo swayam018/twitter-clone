@@ -9,7 +9,7 @@ export default function RouteLayout({ children }: { children: React.ReactNode })
         <LeftSideBar />
         {children} 
         <RightSideBar />
-      </div>
+      </div> 
     </div>
   );
 }
