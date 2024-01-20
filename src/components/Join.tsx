@@ -54,10 +54,10 @@ function Join() {
               <span>Sign in with FaceBook</span>
             </button>
             <div className=' flex items-center w-80 gap-2 max-[380px]:w-64'><span className='w-full h-[1px] bg-gray-700' />or<span className='w-full h-[1px] bg-gray-700' /></div>
-            <button className=" w-80 bg-primary py-2 text-lg rounded-full max-[380px]:w-64 text-center "  onClick={()=>router.push('/signup')}>Create account</button>
+            <button className=" w-80 bg-primary1 py-2 text-lg rounded-full max-[380px]:w-64 text-center "  onClick={()=>router.push('/signup')}>Create account</button>
             <div className=' flex flex-col gap-4'>
               <span>Already have an account?</span>
-              <button className=" w-80 max-[380px]:w-64 text-primary py-2 text-lg rounded-full border border-slate-50 hover:bg-primary/20 font-semibold text-center " onClick={()=>router.push('/signup')}>Sign in</button>
+              <button className=" w-80 max-[380px]:w-64 text-primary1 py-2 text-lg rounded-full border border-slate-50 hover:bg-primary1/20 font-semibold text-center " onClick={()=>router.push('/signup')}>Sign in</button>
             </div>
           </div>
         </div>

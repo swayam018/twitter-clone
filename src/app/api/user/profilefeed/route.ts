@@ -7,7 +7,6 @@ export async function POST(request:NextRequest){
     const reqData = await request.json();
     const pageType = reqData.pageType;
     const userName = reqData.userName;
-    console.log(pageType,userName);
 
     const user= await User.findOne({twitterId:userName});
     if(!user){
@@ -22,8 +21,7 @@ export async function POST(request:NextRequest){
     //     return NextResponse.json({tweets: tweets.tweets});
     //  }
      else  if(pageType==="likes"){
-        const tweets = await User.findOne({ twitterId: userName })
-        console.log(tweets);
+        const tweets = await User.findOne({ twitterId: userName }).populate('liked_tweets');
         return NextResponse.json({tweets: tweets.liked_tweets});
      }
     //  else if(pageType === "media"){

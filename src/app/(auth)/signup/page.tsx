@@ -6,7 +6,6 @@ import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { RxCross2 } from 'react-icons/rx'
-import AuthLayout from '../layout'
 
 function Signup () {
   const [formData, setformData] = useState({
@@ -63,6 +62,10 @@ function Signup () {
             </button>
             <span className=' w-80'>---------------- OR ----------------</span>
             <form className=' flex flex-col gap-4 items-center w-full' onSubmit={handleSubmit}>
+            <div className=' input'>
+                <label htmlFor="username">UserName</label>
+                <input type="text" placeholder='Enter UserName' className=' outline-none border border-white rounded-md bg-transparent px-2 py-2 w-full  focus:shadow-normal focus:shadow-primary focus:ring-2  ring-primary focus:border-transparent  ' required onChange={handleChange} value={formData.name} name='name' />
+              </div>
               <div className=' input'>
                 <label htmlFor="Email">Email</label>
                 <input type="email" placeholder='Enter email' className=' outline-none border border-white rounded-md bg-transparent px-2 py-2 w-full  focus:shadow-normal focus:shadow-primary focus:ring-2  ring-primary focus:border-transparent  ' required onChange={handleChange} value={formData.email} name='email' />

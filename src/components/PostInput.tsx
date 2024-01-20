@@ -91,7 +91,7 @@ function PostInput() {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["tweets"] })
         },
-    })
+    })  
 
     return (
         <div className=' px-4 mt-4 flex flex-row max-sm:px-2  '>

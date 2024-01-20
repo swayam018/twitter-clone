@@ -37,7 +37,7 @@ const NavigationItems = [
 
 
 function LeftSideBar() {
-    const { data: session } = useSession();
+    const { data: session }:{data:any} = useSession();
     const [open, setOpen] = useState(false);
     const buttonref = useRef(null);
     const modalref  = useRef(null);
@@ -53,8 +53,8 @@ function LeftSideBar() {
                 <div className="flex flex-col h-full max-sm:gap-2">
                     {NavigationItems.map((items: any, index) => (
                         <Link
-                            href={`/${items?.title.toLowerCase()}`}
-                            key={index}
+                            href={`${items?.title==="Profile"? `${session?.user?.username}` : items?.title.toLowerCase()}`}
+                            key={index} 
                             className="flex flex-row w-fit gap-5 items-center hover:bg-gray-700/40 py-[10px] text-2xl  rounded-full mx-4 justify-start px-5 max-xl:px-4 max-xl:py-4 max-sm:text-xl max-sm:px-2 max-sm:py-2 max-sm:ml-4  max-sm:mr-2">
                             <div>
                                 <items.icon />

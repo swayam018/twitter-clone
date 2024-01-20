@@ -10,6 +10,10 @@ export async function POST(request:NextRequest){
         connects();
         const reqData = await request.json();
         const session = await getServerSession();
+        const timestamp = new Date().getTime();
+        const date = new Date(timestamp);
+        const localdate = date.toLocaleString('en-GB');
+        console.log(localdate);
         if(reqData.user.email !== session?.user?.email){
             return NextResponse.json({message:"Session is invalid. Please login in again!.",status:400})
         }
@@ -23,7 +27,9 @@ export async function POST(request:NextRequest){
             tweet_content:reqData.text,
             twitterId:userExist._id,
             name:userExist.name,
-            username:userExist.twitterId
+            username:userExist.twitterId,
+            createdTime:localdate,
+            createdAt:new Date()
         });
         
         await userExist.tweets.push(newTweet._id);

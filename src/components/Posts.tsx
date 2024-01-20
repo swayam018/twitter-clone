@@ -11,6 +11,8 @@ import { IoBookmarkOutline } from "react-icons/io5";
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { MdOutlineFavorite } from "react-icons/md";
+import { BsDot } from "react-icons/bs";
+
 
 
 function Posts({ post }: any) {
@@ -20,7 +22,7 @@ function Posts({ post }: any) {
     const onLikeHandler = async (post: any) => {
         if(!session){
             console.log("please login");
-            return ;
+            return null;
         }
         await axios.post('/api/tweet/likes', { user_id:session?.user?.id ,tweet_id:post._id })
     }
@@ -31,6 +33,7 @@ function Posts({ post }: any) {
                 setIsLiked(true);
             }
         })
+
     },[])
 
     return (
@@ -45,25 +48,26 @@ function Posts({ post }: any) {
             <div className=' w-full'>
                 <div className=' flex flex-row justify-between w-full items-center '>
                     <div className='flex flex-row gap-2 justify-start items-center max-[476px]:flex-col max-[476px]:justify-start max-[476px]:items-start max-[476px]:gap-0'>
-                        <div className='w-fit max-w-[152px] overflow-hidden whitespace-nowrap' >{post.name} </div>
-                        <div className='flex items-center gap-2  '>
-                            <div className='w-fit max-w-[152px] overflow-hidden'>@saflajkkkkkkkkkkkkkkkkkkkkkkkkkafffffsklfja</div>
-                            <div className='w-fit max-w-[100px] overflow-hidden'>{post.createdTime}</div>
+                        <Link href={`/${post.username}`} className='w-fit max-w-[152px] overflow-hidden whitespace-nowrap text-xl' >{post.name} </Link>
+                        <div className='flex items-center gap-1 text-gray-400  '>
+                            <div className='w-fit max-w-[152px] overflow-hidden whitespace-nowrap'>@{post.username}</div>
+                            <span className=' h-full text-center'><BsDot/></span>
+                            <div className='w-fit max-w-[100px] overflow-hidden whitespace-nowrap'>{``}</div>
                         </div>
                     </div>
                     <div className=' hover:bg-primary1/20 px-2 py-2 rounded-full hover:text-primary1'>
                         <FiMoreHorizontal />
                     </div>
                 </div>
-                <div className=' pt-2' >
-                    <div className=' pb-4 w-full break-all'>
+                <div>
+                    <div className=' pb-2 w-full break-all'>
                         {post.tweet_content}
                     </div>
                     {post.tweet_image !== undefined && (
                         <div className=' h-80 aspect-square w-full max-w-fit bg-gray-500 rounded-lg max-[485px]:w-full max-[485px]:aspect-auto  ' />
                     )}
                 </div>
-                <div className=' flex flex-row justify-between w-full items-center mt-2'>
+                <div className=' flex flex-row justify-between w-full items-center'>
                     <div className=' text-gray-400  hover:text-primary1 flex items-center gap-1 '>
                         <div className='px-2 py-2 rounded-full text-xl hover:bg-primary1/20 max-sm:text-lg '> <BiMessageRounded /></div>
                         <span> {post.comments.length} </span>
@@ -73,7 +77,7 @@ function Posts({ post }: any) {
                         <span>{post.retweet.length}</span>
                     </div>
                     <div className='  hover:text-red-400 flex items-center ' >
-                        <div className={`px-2 py-2 rounded-full text-xl max-sm:text-lg hover:bg-red-400/20 ${isLiked?"text-red-700":"text-gray-400"} `} onClick={() => { onLikeHandler(post); setIsLiked(!isLiked);setLikeClicked(!likeClicked); }}>{!isLiked?<GrFavorite /> :<MdOutlineFavorite/>}</div>
+                        <div className={`px-2 py-2 rounded-full text-xl max-sm:text-lg hover:bg-red-400/20 ${isLiked?"text-red-700":"text-gray-400"} `} onClick={() => { onLikeHandler(post); setIsLiked(!isLiked);setLikeClicked(!likeClicked);}}>{!isLiked?<GrFavorite /> :<MdOutlineFavorite/>}</div>
                         <span>{isLiked && likeClicked?post.tweet_liked.length+1:post.tweet_liked.length}</span>
                     </div>
                     <div className=' text-gray-400 hover:bg-primary1/20 hover:text-primary1 items-center text-xl flex  max-sm:text-lg px-2 py-2 rounded-full'>

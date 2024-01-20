@@ -28,17 +28,15 @@ function Profile({ profile }: any) {
     if (session) {
       setSession(true)
       if (profile._id === session?.user?.id) {
-        console.log("this is called again");
         isUser.current = true;
       }
       profile.followers.map((followersid: any) => {
         if (followersid.toString() === session.user?.id) {
-          console.log("running time")
           setIsfollowing(true)
         }
       })
     }
-  }, [])
+  }, [session])
   const editProfileHandler = () => { }
   const followandunfollowHandler = useMutation({
     mutationFn: async () => {
@@ -52,6 +50,7 @@ function Profile({ profile }: any) {
       setIsfollowing(!isFollowing);
     },
   })
+
   return (
     <div className='text-white bg-black w-[598px] relative border-r border-gray-500 '>
       {!login && (
@@ -92,7 +91,7 @@ function Profile({ profile }: any) {
                 <span className='usertag'><IoLocationOutline />{profile.location}</span>
               )}
               <span className='usertag'><RiLinkM />websitedomain</span> 
-              <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span>
+              {/* <span className='usertag'><CgCalendarDates /> Joined on {profile.createdTime.split(',')[0]}</span> */}
               {profile.birthday && <span className='usertag'><BsBalloon />{profile.birthday}</span>}
               <span className='usertag'><MdOutlineWorkOutline />interested topic</span>
             </div>
