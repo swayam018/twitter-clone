@@ -9,17 +9,22 @@ export async function POST(request: NextRequest) {
     const currentUser = reqData.cuser;
     const FollowingUser = reqData.followingUser;
 
+    console.log(currentUser,FollowingUser)
     const isUser = await User.findOne({ _id: currentUser });
     const followedUser = await User.findOne({ _id: FollowingUser});
 
+    // console.log(isUser,followedUser)
+
     //is currentuser is already following user
     var isFollowing = false;
-    await isUser.following.map((following: any) => {
-        if (following.toString()=== FollowingUser) {
+    await isUser.following.map((followings: any) => {
+      console.log(followings);
+        if (followings.toString()=== FollowingUser) {
         isFollowing = true;
       }
     });
 
+    console.log("hello world");
     if (isFollowing) {
       const cUser = await isUser.following.filter(
         (isfollowing: any) => isfollowing.toString() !== FollowingUser,
@@ -40,8 +45,8 @@ export async function POST(request: NextRequest) {
     await followedUser.save();
     await isUser.save();
     return NextResponse.json({ message: "follwing the user now" });
-  } catch (error: any) {
-    console.log(error.message);
-    return NextResponse.json({ message: "error occured" });
+  } catch (er: any) {
+    console.log(er.message);
+    return NextResponse.error();
   }
 }

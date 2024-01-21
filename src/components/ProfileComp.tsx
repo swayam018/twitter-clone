@@ -34,29 +34,6 @@ const ProfileComp = () => {
     }
   })
 
-  // useEffect(() => {
-  //   const fetchProfile = async () => {
-  //     await axios
-  //       .post("api/user/userdata", { username: username.split("/")[1] })
-  //       .then((resp: any) => {
-  //         if (resp.data.status === 200) {
-  //           setUserdata(resp.data.user);
-  //           setUserExist(true);
-  //           setLoading(false);
-  //         } else {
-  //           console.log(resp);
-  //           setLoading(false);
-  //         }
-  //       })
-  //       .catch((error: any) => {
-  //         console.log(error.message);
-  //         setUserExist(false);
-  //         setLoading(false);
-  //       });
-  //   };
-  //   fetchProfile();
-  // }, []);
-
   const userdata = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
